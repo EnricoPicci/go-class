@@ -134,8 +134,6 @@ func TestWrite(t *testing.T) {
 	var path = testhelpers.FilePath("canti-divina-commedia/01 - Inferno - CANTO PRIMO.txt")
 	lines := readFileLines(path)
 
-	// tmpDir := t.TempDir()
-	// outFilePath := filepath.Join(tmpDir, "out.txt")
 	outDir := testhelpers.FilePath("tmp/")
 	outFileName := "01 - Inferno - CANTO PRIMO.txt"
 	outFilePath := outDir + outFileName

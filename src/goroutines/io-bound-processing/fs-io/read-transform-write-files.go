@@ -103,7 +103,7 @@ func write(file fileWithLines, dirPath string) {
 	}
 
 	w.Flush()
-	fmt.Printf("File %v written\n", file.path)
+	//fmt.Printf("File %v written\n", file.path)
 
 }
 
@@ -128,5 +128,5 @@ func addLineNumbersToFilesInDir(dirPath string, outDirPath string, concurrent in
 	}
 
 	wg.Wait()
-	fmt.Println("Program terminating")
+	//fmt.Println("Program terminating")
 }
