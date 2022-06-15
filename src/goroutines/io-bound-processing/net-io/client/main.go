@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"runtime"
 	"time"
+
+	"github.com/EnricoPicci/go-class.git/src/goroutines/io-bound-processing/net-io/client/send"
 )
 
 func main() {
@@ -17,11 +19,11 @@ func main() {
 
 	fmt.Printf("Send %v requests to the server with %v concurrent goroutines and %v active cores\n", *requestsPtr, *concurrentPtr, *maxProcs)
 
-	// sleep := getSleepTime()
-	//fmt.Printf("Each request takes %v milliseconds to be processed\n", sleep)
+	sleep := send.GetSleepTime()
+	fmt.Printf("Each request takes %v milliseconds to be processed\n", sleep)
 
 	start := time.Now()
-	callServer(*requestsPtr, *concurrentPtr)
+	send.CallServer(*requestsPtr, *concurrentPtr)
 
 	fmt.Println(">>>>>>>>>>>> Time to process all requests:", time.Since(start))
 

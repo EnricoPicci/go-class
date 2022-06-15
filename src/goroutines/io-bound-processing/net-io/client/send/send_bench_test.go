@@ -1,4 +1,4 @@
-package main
+package send
 
 import (
 	"runtime"
@@ -15,7 +15,7 @@ func BenchmarkAddLineNumbersToFilesInDir(b *testing.B) {
 	runtime.GOMAXPROCS(1)
 	var r int
 	for i := 0; i < b.N; i++ {
-		r += callServer(howMany, concurrent)
+		r += CallServer(howMany, concurrent)
 	}
 	result = r
 	// 12647

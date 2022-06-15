@@ -1,4 +1,4 @@
-package main
+package send
 
 import (
 	"fmt"
@@ -143,7 +143,7 @@ func TestCallServer(t *testing.T) {
 	howMany := 4
 	concurrent := 2
 
-	requestsProcessed := callServer(howMany, concurrent)
+	requestsProcessed := CallServer(howMany, concurrent)
 
 	// test that the number of requests processed is correct
 	if requestsProcessed != howMany {

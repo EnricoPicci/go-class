@@ -1,4 +1,4 @@
-package main
+package send
 
 import (
 	"fmt"
@@ -61,7 +61,7 @@ func split(howMany int, concurrent int) []int {
 	return split
 }
 
-func callServer(howManyTimes int, concurrent int) int {
+func CallServer(howManyTimes int, concurrent int) int {
 	split := split(howManyTimes, concurrent)
 
 	var requestsprocessed int = 0
@@ -80,7 +80,7 @@ func callServer(howManyTimes int, concurrent int) int {
 	//fmt.Println("Program terminating")
 }
 
-func getSleepTime() string {
+func GetSleepTime() string {
 	defer func() {
 		if r := recover(); r != nil {
 
