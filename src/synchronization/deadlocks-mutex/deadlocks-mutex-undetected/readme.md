@@ -7,7 +7,7 @@ In this case the runtime is able to detect the deadlock
 From the GO-CLASS project folder run the command
 `go build -o ./bin/deadlocks-mutex-undetected ./src/synchronization/deadlocks-mutex/deadlocks-mutex-undetected`
 
-### run
+## run
 
 From the GO-CLASS project folder run the command
 `./bin/deadlocks-mutex-undetected`

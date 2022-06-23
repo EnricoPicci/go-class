@@ -7,7 +7,7 @@ import (
 )
 
 // In this example 2 goroutines lock and unlock 2 mutexes in a different order.
-// The first one lockss	mu_1 and then locks mu_2. The second one locks mu_2 and then locks mu_1.
+// The first one locks	mu_1 and then locks mu_2. The second one locks mu_2 and then locks mu_1.
 // This is a deadlock but the runtime does not detect it since we have also launched a third goroutine.
 // Even if the thirg goroutine does nothing but wait for a timeout, the runtime imagines
 // that sooner or later it could unlock one of the mutexed and resume the processing of the other 2 goroutines.

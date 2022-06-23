@@ -5,7 +5,7 @@ The simulation of a typical deadlock scenario with 2 user defined types which se
 ## build
 
 From the GO-CLASS project folder run the command
-`go build -o ./bin/deadlocks-with-self-referencing-structs ./src/synchronization/deadlocks-mutex/deadlocks-with-self-referencing-structs`
+`go build -o ./bin/deadlocks-with-self-referencing-structs ./src/synchronization/deadlocks-with-self-referencing-structs`
 
 ### run
 
