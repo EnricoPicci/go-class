@@ -37,7 +37,7 @@ From the GO-CLASS project folder run the command
 From the GO-CLASS project folder run the command
 `./bin/synchronized-shared-counter-atomic`
 
-## Sychronized shared counter using atomic instructions
+## Sychronized shared counter using mutexes
 
 In this example a counter is incremented concurrently by many goroutines which run in parallel. Synchronization is guaranteed by the use of mutex
 

@@ -12,10 +12,10 @@ func init() {
 }
 
 // In this example we show the different behaviors of sync.Mutex and sync.RWMutex in a scenario with many readers and few writers.
-// The idea is to simulate and app which has users. The users can receive "like"s from other users.
+// The idea is to simulate an app which has users. The users can receive "like"s from other users.
 // Any user that enters the app sees the number of "like" of another users.
-// Users entering the app and reading the number of "like"s are simulated by a set of goroutines.
-// The one user sending the "like" is simulated by a goroutine.
+// Users entering the app and reading the number of "like"s are simulated by a many goroutines (i.e. many reads).
+// The one user sending the "like" is simulated by just one goroutine (i.e. few writes).
 // All the goroutines, both the readers and the writer, start at a random time within a specified time window
 
 // Parameters used in the simulation
@@ -94,6 +94,9 @@ type likeReaderSender interface {
 var lastLikesRead int // used just to avoid the compiler to cry because of the unused variable
 
 func main() {
+	fmt.Println("This example shows the different behaviors of sync.Mutex and sync.RWMutex in a scenario with many readers and few writers.")
+	fmt.Println("sync.Mutex should introduce an higher delay (latency) than sync.RWMutex since there are many readers and few writers.")
+	fmt.Println("")
 	user_Mutex := user_M{name: "The Mutex user", likes: 0}
 	user_RWMutex := user_RWM{name: "The RWMutex user", likes: 0}
 
