@@ -15,6 +15,7 @@ var mu = sync.Mutex{}
 var sleepPtr *int
 var logPtr *bool
 
+// higher level function which returns an handler function - uses currying to set the sleep time
 func handlerFact(sleep *int) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if *logPtr {
@@ -23,6 +24,8 @@ func handlerFact(sleep *int) func(w http.ResponseWriter, r *http.Request) {
 		var _counter int
 		mu.Lock()
 		counter++
+		// use a local variable to copy the counter - in this way we can pass the local variable down to the calling functions
+		// without the risk of having it changed by other executions of the handler (which can be invoked concurrently by concurrent requests coming in)
 		_counter = counter
 		mu.Unlock()
 

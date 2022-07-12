@@ -57,8 +57,13 @@ func executeWithTimeout(url string, d time.Duration) {
 	client := http.DefaultClient
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("%v", err)
-		return
+		// if the context has an error, it means that it has timeouted
+		if e := ctx.Err(); e != nil {
+			log.Printf("%v", e)
+			return
+		}
+		// if there is no error in the context and we end up here, then we have an unexpected problem
+		panic(err)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
