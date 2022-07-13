@@ -22,7 +22,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// process the request
 	resp, err := process(ctx, waitForCancelPtr)
 	if err != nil {
+		// check if the context has an error
 		if e := ctx.Err(); e != nil {
+			// the error can be generated because of a timeout or because of a cancellation of the context or of any of its parents
 			switch err {
 			case context.Canceled:
 				log.Println("Request cancelled")
@@ -48,9 +50,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func process(ctx context.Context, waitCancel *bool) (string, error) {
 	var url = "https://en.wikipedia.org/wiki/Go_(programming_language)"
 
+	// if we have set the waitCancel flag then we wait until the request is cancelled, i.e. closing the browser which has generated the request
 	if *waitCancel {
 		log.Println("Waiting for the client to close the request. If the client is a browser just close the browser tab.")
 		<-ctx.Done()
+		// if the channel returned by Done() has fired a signal (in this case a close signal) then we return the error of the context
 		return "", ctx.Err()
 	}
 
@@ -60,6 +64,7 @@ func process(ctx context.Context, waitCancel *bool) (string, error) {
 	}
 	client := http.DefaultClient
 	resp, err := client.Do(req)
+	// if the context timeouts, then an error is returned and we return the error to the caller
 	if err != nil {
 		return "", err
 	}

@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-// this test can not be run from the vscode debugger since the logic of the testhelpers FilePath function
-// is implemented to get the current working directory even if the test is launched from the vscode debugger
-func TestAddLineNumber(t *testing.T) {
+// this test can not be run from the vscode debugger
+// to make it work if launched from the vscode debugger we would have to repeat the implementation code which would be ineffective
+func TestFilePath(t *testing.T) {
 	fileName := "abc.txt"
 	testDirPath := "src/testhelpers/"
 

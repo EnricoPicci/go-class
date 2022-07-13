@@ -2,7 +2,7 @@
 
 Example of file system IO bound processing.
 
-The app reads files from a directory, add a line at the beginning of each line of each file and then writes the files with the lines numbered to an output directory.
+The app reads files from a directory, add a line number at the beginning of each line of each file and then writes the files with the lines numbered to an output directory.
 
 The api of this transformation is the function
 
