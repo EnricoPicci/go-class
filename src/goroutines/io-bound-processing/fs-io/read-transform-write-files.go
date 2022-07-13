@@ -50,8 +50,6 @@ func calcFileRanges(files []string, numberOfRanges int) [][]string {
 func readFileLines(path string) []string {
 	f, err := os.Open(path)
 	if err != nil {
-		err := fmt.Sprintf("open file error: %v", err)
-		fmt.Println(err)
 		panic(err)
 	}
 	defer f.Close()
