@@ -24,7 +24,7 @@ func (r *slowReaderCtx) Read(p []byte) (n int, err error) {
 		return 0, err
 	}
 	time.Sleep(1 * time.Second)
-	fmt.Println(">>>>> Execture read")
+	fmt.Println(">>>>> Execute read")
 	return r.r.Read(p)
 }
 

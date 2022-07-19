@@ -11,6 +11,8 @@ import (
 	"github.com/EnricoPicci/go-class.git/src/testhelpers"
 )
 
+// this function processes a file line by line
+// it is a slow processor since, for every line read, it simulates heacy processing by sleeping for some time
 func processFileLineByLine(ctx context.Context, path string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
