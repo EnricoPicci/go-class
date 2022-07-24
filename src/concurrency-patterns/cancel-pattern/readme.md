@@ -23,11 +23,9 @@ From the GO-CLASS project folder run the command
 
 In order to trigger the cancel pattern it is necessary that `faultyFunction` fails. This occurs if we pass a time using the -failAfter flag.
 
-A very short time (e.g. <10) raise the error before both `slowlyReadFileToString` and `slowlyProcess` complete.
-
-A longer time (e.g. 1000) raise the error after `slowlyReadFileToString` completes but before `slowlyProcess` completes.
-
-An even longer time (e.g. 2000) raise the error after both `slowlyReadFileToString` and `slowlyProcess` complete.
+- A very short time (e.g. <10) raise the error before both `slowlyReadFileToString` and `slowlyProcess` complete.
+- A longer time (e.g. 1000) raise the error after `slowlyReadFileToString` completes but before `slowlyProcess` completes.
+- An even longer time (e.g. 2000) raise the error after both `slowlyReadFileToString` and `slowlyProcess` complete.
 
 From the GO-CLASS project folder run the command
 `./bin/cancel-pattern -failAfter 100`
