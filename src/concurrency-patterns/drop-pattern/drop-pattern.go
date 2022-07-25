@@ -21,13 +21,15 @@ type Request struct {
 // set the size of the worker pool
 var poolSize *int
 
+// time unit utilized to calculate durations
+var timeUnit = time.Millisecond
+
 // average interval between requests
 var avgReqInterval *int
 
 // ratio between average time spent to process a request and the interval between subsequent requests - a ratio of 5, for instance,
 // means that 5 requests come in, on average, in the time that one request is processed
 var procIntervalRatio *float64
-var timeUnit = time.Millisecond
 
 var requestProcessed = 0
 var requestDropped = 0

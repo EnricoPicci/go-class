@@ -1,6 +1,6 @@
 # Drop pattern
 
-In this example we implement worker drop pattern.
+In this example we implement the drop pattern.
 
 A certain number of requests is sent to a worker pool.
 
@@ -23,11 +23,11 @@ From the GO-CLASS project folder run the command
 
 ## run
 
-Palying with the parameters passed by command line allows to see how, in different conditions, the drop pattern can behave differently.
+Playing with the parameters passed by command line allows to see how, in different conditions, the drop pattern can behave differently.
 
 ### drop about 50% of incoming reuests
 
-If we have a chanCap of 0 (no buffer), a poolSize of 5 (i.e. 5 workers working concurrently) and a procIntervalRatio of 10 (i.e. in the time required t process 1 request 10 new requests come in), the drop pattern dorps about 50% of the requests. The reason is that if, for instance, the processing time is P and in this P interval we receive 10 requests, a pool of 5 can process only half of them and therefore half get dropped.
+If we have a chanCap of 0 (no buffer), a poolSize of 5 (i.e. 5 workers working concurrently) and a procIntervalRatio of 10 (i.e. in the time required to process 1 request 10 new requests come in), the drop pattern drops about 50% of the requests. The reason is that if, for instance, the processing time is P and in this P interval we receive 10 requests, a pool of 5 can process only half of them and therefore half get dropped.
 
 NOTE. Actually in this configuration the percentage of dropped requests tends to be a bit more than 50%, since the time required to process a request is acutally longer that the simple processing time since it has also to consider the time spent in the send/receive operation on the channel. The smaller the value of avgReqInterval (average interval between requests in miliseconds), the smaller is the the processing time (since it is linked to the avgReqInterval by the value of procIntervalRatio) the more the effect is of the time spent in the send/receive operation in the total time taken to process a request, the higher therefore becomes the percentage of dropped requests.
 
