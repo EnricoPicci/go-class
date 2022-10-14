@@ -1,7 +1,7 @@
 package orderManager
 
 import (
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/order"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/order"
 )
 
 // taxCalculateLogic is a variable which stores a function that calculates the tax for a given order.

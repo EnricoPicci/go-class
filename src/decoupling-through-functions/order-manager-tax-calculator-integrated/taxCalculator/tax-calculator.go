@@ -1,6 +1,6 @@
 package taxCalculator
 
-import "github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-integrated/order"
+import "github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-integrated/order"
 
 func CalculateTax(o order.Order) float64 {
 	tot := 0.0

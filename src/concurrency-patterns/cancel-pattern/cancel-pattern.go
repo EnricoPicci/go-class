@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/EnricoPicci/go-class.git/src/testhelpers"
+	"github.com/EnricoPicci/go-class/src/testhelpers"
 )
 
 // This program implements the forkJoin pattern. It launches some subtasks, passing them a context, and wait for their partial results on a result channel.

@@ -1,8 +1,8 @@
 package orderManager
 
 import (
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-integrated/order"
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-integrated/taxCalculator"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-integrated/order"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-integrated/taxCalculator"
 )
 
 func CalculatePrice(o order.Order) float64 {

@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/EnricoPicci/go-class.git/src/testhelpers"
+	"github.com/EnricoPicci/go-class/src/testhelpers"
 )
 
 // this a type implementing the io.Reader interface

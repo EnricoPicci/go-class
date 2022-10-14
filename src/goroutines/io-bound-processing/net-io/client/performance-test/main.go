@@ -7,7 +7,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/EnricoPicci/go-class.git/src/goroutines/io-bound-processing/net-io/client/send"
+	"github.com/EnricoPicci/go-class/src/goroutines/io-bound-processing/net-io/client/send"
 )
 
 type test struct {

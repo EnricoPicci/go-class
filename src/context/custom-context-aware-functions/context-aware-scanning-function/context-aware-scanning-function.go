@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/EnricoPicci/go-class.git/src/testhelpers"
+	"github.com/EnricoPicci/go-class/src/testhelpers"
 )
 
 // this function processes a file line by line

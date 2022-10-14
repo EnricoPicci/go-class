@@ -44,7 +44,7 @@ var requestWaiting = 0
 var maxWaitingQueueSize = 0
 var maxWaitDuration time.Duration
 
-var muReqIdleTime sync.Mutex
+var muWorkersIdleTime sync.Mutex
 var workersIdleTime time.Duration
 
 var extraordinaryEvent *bool
@@ -129,9 +129,9 @@ func doWork(inCh <-chan Request, wg *sync.WaitGroup, i int) {
 	var startIdleTime time.Time
 	for req := range inCh {
 		if !startIdleTime.IsZero() {
-			muReqIdleTime.Lock()
+			muWorkersIdleTime.Lock()
 			workersIdleTime = workersIdleTime + time.Since(startIdleTime)
-			muReqIdleTime.Unlock()
+			muWorkersIdleTime.Unlock()
 		}
 		waitDuration := time.Since(req.created)
 		req.waitDuration = waitDuration
@@ -192,10 +192,10 @@ func processOrDropWithTimeout(ctx context.Context, req Request, inPoolCh chan<- 
 	ctx, cancel := context.WithTimeout(ctx, time.Duration(timeout)*timeUnit)
 	defer cancel()
 
-	// wait until the request is processed or the context times out
+	// wait until the request enters the input channel of the worker pool or the context times out
 	select {
 	case inPoolCh <- req:
-		// the request is sent to the pool
+		// the request is sent to the input channel of the pool
 	case <-ctx.Done():
 		// the context times out and the request is dropped
 		decreaseRequestWaiting("drop", req)

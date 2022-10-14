@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/EnricoPicci/go-class.git/src/testhelpers"
+	"github.com/EnricoPicci/go-class/src/testhelpers"
 )
 
 var result int

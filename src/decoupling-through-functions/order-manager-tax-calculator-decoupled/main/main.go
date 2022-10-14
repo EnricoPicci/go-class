@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/order"
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/orderManager"
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/taxCalculatorComplex"
-	"github.com/EnricoPicci/go-class.git/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/taxCalculatorSimple"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/order"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/orderManager"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/taxCalculatorComplex"
+	"github.com/EnricoPicci/go-class/src/decoupling-through-functions/order-manager-tax-calculator-decoupled/taxCalculatorSimple"
 )
 
 func main() {
