@@ -49,7 +49,7 @@ func main() {
 	http.HandleFunc("/dostuff", handlerFact(sleepPtr))
 	http.HandleFunc("/sleep", sleepQueryHandler)
 
-	fmt.Printf("Starting server on port 8080 - the processing of each request takes %v milliseconds\n", *sleepPtr)
+	fmt.Printf("Starting server on port %v - the processing of each request takes %v milliseconds\n", *portPtr, *sleepPtr)
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", *portPtr), nil))
 }

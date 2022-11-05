@@ -1,11 +1,6 @@
-## Applicaton "Hi"
+# Examples used in the GO Class
 
-### build
-
-From the GO-CLASS project folder run the command
-`go build -o ./bin/hi ./src/hi`
-
-### run
+## run the tests
 
 From the GO-CLASS project folder run the command
-`./bin/hi`
+`./launch-tests.sh`

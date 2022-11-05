@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path"
 	"strconv"
 	"testing"
 
@@ -9,9 +10,9 @@ import (
 )
 
 func TestReadFilepathsFromDir(t *testing.T) {
-	var path = testhelpers.FilePath("/canti-divina-commedia")
+	var filePath = testhelpers.FilePath("/canti-divina-commedia")
 
-	files := readFilepathsFromDir(path)
+	files := readFilepathsFromDir(filePath)
 
 	// test the number of files
 	expectedNumberOfFiles := 100
@@ -23,8 +24,8 @@ func TestReadFilepathsFromDir(t *testing.T) {
 }
 
 func TestCalcFileRanges(t *testing.T) {
-	var path = testhelpers.FilePath("/canti-divina-commedia")
-	filePaths := readFilepathsFromDir(path)
+	var filePath = testhelpers.FilePath("/canti-divina-commedia")
+	filePaths := readFilepathsFromDir(filePath)
 
 	var concurrent = 2
 	fileRanges := calcFileRanges(filePaths, concurrent)
@@ -58,7 +59,7 @@ func TestCalcFileRanges(t *testing.T) {
 		}
 	}
 	numberOfUniqueFilesInRanges := len(fileSet)
-	numberOfFilesReadFromFolder := len(readFilepathsFromDir(path))
+	numberOfFilesReadFromFolder := len(readFilepathsFromDir(filePath))
 	if numberOfUniqueFilesInRanges != numberOfFilesReadFromFolder {
 		t.Errorf("The number of unique files %v is not the same of the number of files read from folde which is %v",
 			numberOfUniqueFilesInRanges, numberOfFilesReadFromFolder)
@@ -67,9 +68,9 @@ func TestCalcFileRanges(t *testing.T) {
 }
 
 func TestAddLineNumber(t *testing.T) {
-	var path = testhelpers.FilePath("/canti-divina-commedia/01 - Inferno - CANTO PRIMO.txt")
+	var filePath = testhelpers.FilePath("/canti-divina-commedia/01 - Inferno - CANTO PRIMO.txt")
 
-	lines := readFileLines(path)
+	lines := readFileLines(filePath)
 	numberedLines := addLineNumber(lines)
 
 	// test the number of lines
@@ -103,8 +104,8 @@ func TestAddLineNumber(t *testing.T) {
 }
 
 func TestAddLineNumberToFiles(t *testing.T) {
-	var path = testhelpers.FilePath("/canti-divina-commedia")
-	filePaths := readFilepathsFromDir(path)
+	var filePath = testhelpers.FilePath("/canti-divina-commedia")
+	filePaths := readFilepathsFromDir(filePath)
 
 	var concurrent = 2
 	fileRanges := calcFileRanges(filePaths, concurrent)
@@ -131,14 +132,14 @@ func TestAddLineNumberToFiles(t *testing.T) {
 }
 
 func TestWrite(t *testing.T) {
-	var path = testhelpers.FilePath("canti-divina-commedia/01 - Inferno - CANTO PRIMO.txt")
-	lines := readFileLines(path)
+	var filePath = testhelpers.FilePath("canti-divina-commedia/01 - Inferno - CANTO PRIMO.txt")
+	lines := readFileLines(filePath)
 
 	outDir := testhelpers.FilePath("tmp/")
 	outFileName := "01 - Inferno - CANTO PRIMO.txt"
-	outFilePath := outDir + outFileName
+	outFilePath := path.Join(outDir, outFileName)
 
-	f := fileWithLines{path, lines}
+	f := fileWithLines{filePath, lines}
 
 	err := os.Remove(outFilePath)
 	if err != nil {
@@ -156,14 +157,14 @@ func TestWrite(t *testing.T) {
 }
 
 func TestAddLineNumbersToFilesInDir(t *testing.T) {
-	var path = testhelpers.FilePath("/canti-divina-commedia")
+	var filePath = testhelpers.FilePath("/canti-divina-commedia")
 	var outDirPath = t.TempDir()
 	var concurrent = 2
 
-	addLineNumbersToFilesInDir(path, outDirPath, concurrent)
+	addLineNumbersToFilesInDir(filePath, outDirPath, concurrent)
 
 	// test that the number of files in the output directory is the same of the number of files in the input directory
-	files := readFilepathsFromDir(path)
+	files := readFilepathsFromDir(filePath)
 	outFiles := readFilepathsFromDir(outDirPath)
 	if len(files) != len(outFiles) {
 		t.Errorf("The number of files in the output directory is %v instead of %v", len(outFiles), len(files))

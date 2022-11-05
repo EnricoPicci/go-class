@@ -9,9 +9,11 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
+	"path"
 )
 
 type file struct {
@@ -20,14 +22,14 @@ type file struct {
 
 func (f *file) Write(b []byte) (int, error) {
 	if string(b) == "quit\n" {
-		os.Exit(0)
+		return 0, errors.New("Quitting")
 	}
 	i, err := f.file.Write(b)
 	return i, err
 }
 
 func main() {
-	fName := "./out/copy.txt"
+	fName := path.Join(".", "out", "copy.txt")
 
 	fmt.Printf("Enter what you want to write in the %v file (exit typing 'quit')\n", fName)
 
@@ -36,6 +38,7 @@ func main() {
 		panic(err)
 	}
 	defer f.Close()
+	defer fmt.Println("Closing")
 
 	dst := &file{f}
 
