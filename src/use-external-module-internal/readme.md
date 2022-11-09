@@ -4,7 +4,7 @@ This is an example of a package, the main package stored in the `src/use-externa
 
 This external module has some packages residing below a folder names `internal`. The exported names (e.g. variables and functions) exported by the pacakges below the `internal` folder are not visible for this package even if they are exported (i.e. they start with a capital letter). These exported names are visible only within the module that defines them.
 
-This can be seen in the [main.go](./main/main.go) file. If we remote the comment from the `import "github.com/EnricoPicci/go-class-hello-with-internal/src/internal/print"` line, we see that an error appears.
+This can be seen in the [main.go](./main/main.go) file. If we remove the comment from the `import "github.com/EnricoPicci/go-class-hello-with-internal/src/internal/print"` line, we see that an error appears.
 
 ## build
 
