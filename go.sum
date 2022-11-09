@@ -1,5 +1,5 @@
-github.com/EnricoPicci/go-class-hello v0.0.0 h1:UEbXa8BWCXIqpUXyJ0uerYhM7gDCPossjxJ4kZWFTHI=
-github.com/EnricoPicci/go-class-hello v0.0.0/go.mod h1:hB3/mpLJ+d6QKKzAWCq++XDhqWUtnfNaMBv56gpmyWc=
+github.com/EnricoPicci/go-class-hello v0.1.2 h1:S5Nqh5Xo2SIUYC3xk1++pZWJDOdalX0o5A05ijVYoys=
+github.com/EnricoPicci/go-class-hello v0.1.2/go.mod h1:hB3/mpLJ+d6QKKzAWCq++XDhqWUtnfNaMBv56gpmyWc=
 github.com/EnricoPicci/go-class-hello-retract v0.0.1 h1:qG/EmyKZXdlPv5dvUyKxM2kDajmPbE6e9nSi9NuTnB4=
 github.com/EnricoPicci/go-class-hello-retract v0.0.1/go.mod h1:yWj/4C+gUx4HG2Z9ts5Lv0gQlju9lXEy2R894srHpas=
 github.com/EnricoPicci/go-class-hello-with-internal v0.1.1 h1:EYz250uuCB+eOmt1dWAh5MnkYeASV49Reyqc77s0WNU=
