@@ -5,7 +5,7 @@ Protecting the access to the shared resources (maps in this example) removes the
 ## build for daa races detection
 
 From the GO-CLASS project folder run the command
-`go build -race -o ./bin/games-players-synchronized ./src/synchronization/games-players/games-players-synchronized`
+`go build -race -o ./bin/games-players-synchronized ./src/synchronization/data-races/games-players-synchronized`
 
 ### run
 

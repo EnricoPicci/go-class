@@ -13,9 +13,9 @@ func init() {
 
 // In this example we show the different behaviors of sync.Mutex and sync.RWMutex in a scenario with many readers and few writers.
 // The idea is to simulate an app which has users. The users can receive "like"s from other users.
-// Any user that enters the app sees the number of "like" of another users.
-// Users entering the app and reading the number of "like"s are simulated by a many goroutines (i.e. many reads).
-// The one user sending the "like" is simulated by just one goroutine (i.e. few writes).
+// Any user that enters the app sees the number of "like"s of another users.
+// Users entering the app and reading the number of "like"s are simulated by many goroutines that perform reads (i.e. many reads).
+// The one user sending the "like" is simulated by just one goroutine that perform a write (i.e. few writes).
 // All the goroutines, both the readers and the writer, start at a random time within a specified time window
 
 // Parameters used in the simulation
@@ -23,12 +23,13 @@ func init() {
 // timeWindow: the time window in which the goroutines are kicked off
 var timeWindow = 1000
 
-// returns the moment a goroutine is kicked off - it is a random moment within the time window
-func goroutineKickOfTime() time.Duration {
+// returns the moment a goroutine is performs its operation, either read or write - it is a random moment within the time window
+// in this way we distribute randomly the read and write operations over the time window
+func operationTime() time.Duration {
 	return time.Duration(rand.Intn(timeWindow)) * time.Millisecond
 }
 
-// delay: an arbitrary delay added to both the read and the write operations to make the differences between Mutes and RWMutexes more visible
+// delay: an arbitrary delay added to both the read and the write operations to make the differences between Mutex and RWMutexes more visible
 // without such delay the operations would be so fast that the difference would not be perceived
 var delay = time.Duration(5) * time.Millisecond
 
@@ -86,12 +87,12 @@ func (u *user_RWM) readLikes() int {
 }
 
 // it is convenient to have an Interface for all types of users so we can define a single runSimulation function
-type likeReaderSender interface {
+type likeReadSender interface {
 	like()
 	readLikes() int
 }
 
-var lastLikesRead int // used just to avoid the compiler to cry because of the unused variable
+var lastLikesRead int
 
 func main() {
 	fmt.Println("This example shows the different behaviors of sync.Mutex and sync.RWMutex in a scenario with many readers and few writers.")
@@ -110,7 +111,7 @@ func main() {
 	runSimulation(&user_RWMutex)
 }
 
-func runSimulation(u likeReaderSender) {
+func runSimulation(u likeReadSender) {
 
 	var writeTime time.Duration // moment when the write operation is performed
 
@@ -118,10 +119,10 @@ func runSimulation(u likeReaderSender) {
 
 	var wg_w sync.WaitGroup
 	wg_w.Add(numberOfWriters)
-
 	for i := 0; i < numberOfWriters; i++ {
 		go func() {
-			writeTime = goroutineKickOfTime()
+			// save the moment the write operation is performed in the writeTime variable which is then printed at the end of the program
+			writeTime = operationTime()
 			time.Sleep(writeTime)
 			u.like()
 			wg_w.Done()
@@ -132,7 +133,7 @@ func runSimulation(u likeReaderSender) {
 	wg_r.Add(numberOfReaders)
 	for i := 0; i < numberOfReaders; i++ {
 		go func() {
-			time.Sleep(goroutineKickOfTime())
+			time.Sleep(operationTime())
 			likes := u.readLikes()
 			lastLikesRead = likes
 			wg_r.Done()
