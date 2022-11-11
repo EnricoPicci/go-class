@@ -5,6 +5,9 @@ import (
 	"sync"
 )
 
+const Democratic = "Democratic"
+const Republican = "Republican"
+
 type Candidate struct {
 	Name  string
 	Votes int
@@ -21,24 +24,30 @@ type Voter interface {
 }
 
 type DemCitizen struct {
-	Id int
+	Party string
 }
 
 func (d DemCitizen) Vote() {
-	if d.Id != 1 {
-		fmt.Printf("I am the Democrat doing stuff as a %v\n", d.Id)
+	// this is the DemCitizen implementation of the Vote method
+	// if d.Party is not "Democrat" it means that a concrete value NOT of type DemCitizen is running this code
+	// which is clearly something wrong
+	if d.Party != Democratic {
+		fmt.Printf("I should be a Democrat but it seems I am a %v\n", d.Party)
 		strangeDemVotes++
 	}
 	demCandidate.Votes++
 }
 
 type RepCitizen struct {
-	Id int
+	Party string
 }
 
 func (r RepCitizen) Vote() {
-	if r.Id != 2 {
-		fmt.Printf("I am the Republican doing stuff as a %v\n", r.Id)
+	// this is the RepCitizen implementation of the Vote method
+	// if r.Party is not "Republican" it means that a concrete value NOT of type RepCitizen is running this code
+	// which is clearly something wrong
+	if r.Party != Republican {
+		fmt.Printf("I should be a Republican but it seems I am a %v\n", r.Party)
 		strangeRepVotes++
 	}
 	repCandidate.Votes++
@@ -49,45 +58,25 @@ func main() {
 	var voter Voter
 
 	var mu sync.Mutex
-	// citizensVote := func(d Voter, wg *sync.WaitGroup) {
-	// 	for i := 0; i < 1000000; i++ {
-	// 		voter = d
-	// 		mu.Lock()
-	// 		voter.Vote()
-	// 		mu.Unlock()
-	// 	}
-	// 	fmt.Println("DONE")
-	// 	wg.Done()
-	// }
+	citizensVote := func(d Voter, wg *sync.WaitGroup) {
+		for i := 0; i < 1000000; i++ {
+			mu.Lock()
+			voter = d
+			voter.Vote()
+			mu.Unlock()
+		}
+		fmt.Println("DONE")
+		wg.Done()
+	}
 
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	d_1 := DemCitizen{1}
-	// go citizensVote(d_1, &wg)
-	go func(d Voter, wg *sync.WaitGroup) {
-		for i := 0; i < 1000000; i++ {
-			voter = d
-			mu.Lock()
-			voter.Vote()
-			mu.Unlock()
-		}
-		fmt.Println("DONE")
-		wg.Done()
-	}(d_1, &wg)
+	d_1 := DemCitizen{Democratic}
+	go citizensVote(d_1, &wg)
 
-	d_2 := RepCitizen{2}
-	// go citizensVote(d_2, &wg)
-	go func(d Voter, wg *sync.WaitGroup) {
-		for i := 0; i < 1000000; i++ {
-			voter = d
-			mu.Lock()
-			voter.Vote()
-			mu.Unlock()
-		}
-		fmt.Println("DONE")
-		wg.Done()
-	}(d_2, &wg)
+	d_2 := RepCitizen{Republican}
+	go citizensVote(d_2, &wg)
 
 	wg.Wait()
 	fmt.Println(demCandidate.Votes)

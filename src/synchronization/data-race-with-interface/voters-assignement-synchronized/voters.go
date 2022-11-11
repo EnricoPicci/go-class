@@ -60,10 +60,10 @@ func main() {
 	var mu sync.Mutex
 	citizensVote := func(d Voter, wg *sync.WaitGroup) {
 		for i := 0; i < 1000000; i++ {
-			voter = d
 			mu.Lock()
-			voter.Vote()
+			voter = d
 			mu.Unlock()
+			voter.Vote()
 		}
 		fmt.Println("DONE")
 		wg.Done()
@@ -72,11 +72,11 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	d_1 := DemCitizen{Democratic}
-	go citizensVote(d_1, &wg)
+	d := DemCitizen{Democratic}
+	go citizensVote(d, &wg)
 
-	d_2 := RepCitizen{Republican}
-	go citizensVote(d_2, &wg)
+	r := RepCitizen{Republican}
+	go citizensVote(r, &wg)
 
 	wg.Wait()
 	fmt.Println(demCandidate.Votes)

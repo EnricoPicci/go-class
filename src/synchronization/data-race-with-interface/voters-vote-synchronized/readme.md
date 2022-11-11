@@ -1,9 +1,9 @@
 # Voters vote but some votes gets to the wrong candidate
 
-To understand the starting point read the `readme.md` in the `voters` folder.
+To understand the starting point read the `readme.md` in the [voters](../voters/) folder.
 
-We synchronize the call to the Vote method but ths does not solve the problem. In this case the sum of the votes i 2 mlns, i.e. no vote is lost,
-but the candidates do not get exatly 1 mln votes each, as expected, but a slightly different number.
+We synchronize the call to the Vote method but this does not solve the problem. In this case the sum of the votes is 2 mlns, i.e. no vote is lost,
+but the candidates do not get exactly 1 mln votes each, as expected, but a slightly different number.
 This means that some democrats have voted the Rep candidate and viceversa, in a non predictable way though.
 
 The explanation is the following

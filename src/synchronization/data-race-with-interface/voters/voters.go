@@ -5,6 +5,9 @@ import (
 	"sync"
 )
 
+const Democratic = "Democratic"
+const Republican = "Republican"
+
 type Candidate struct {
 	Name  string
 	Votes int
@@ -21,30 +24,30 @@ type Voter interface {
 }
 
 type DemCitizen struct {
-	Id string
+	Party string
 }
 
 func (d DemCitizen) Vote() {
 	// this is the DemCitizen implementation of the Vote method
-	// if d.Id is not "Democrat" it means that a concrete value NOT of type DemCitizen is running this code
+	// if d.Party is not "Democrat" it means that a concrete value NOT of type DemCitizen is running this code
 	// which is clearly something wrong
-	if d.Id != "Democrat" {
-		// fmt.Printf("I should be a Democrat but it seems I am a %v\n", d.Id)
+	if d.Party != Democratic {
+		fmt.Printf("I should be a Democrat but it seems I am a %v\n", d.Party)
 		strangeDemVotes++
 	}
 	demCandidate.Votes++
 }
 
 type RepCitizen struct {
-	Id string
+	Party string
 }
 
 func (r RepCitizen) Vote() {
 	// this is the RepCitizen implementation of the Vote method
-	// if d.Id is not "Republican" it means that a concrete value NOT of type RepCitizen is running this code
+	// if r.Party is not "Republican" it means that a concrete value NOT of type RepCitizen is running this code
 	// which is clearly something wrong
-	if r.Id != "Republican" {
-		// fmt.Printf("I should be a Republican but it seems I am a %v\n", r.Id)
+	if r.Party != Republican {
+		fmt.Printf("I should be a Republican but it seems I am a %v\n", r.Party)
 		strangeRepVotes++
 	}
 	repCandidate.Votes++
@@ -66,10 +69,10 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	d_1 := DemCitizen{"Democrat"}
+	d_1 := DemCitizen{Democratic}
 	go citizensVote(d_1, &wg)
 
-	d_2 := RepCitizen{"Republican"}
+	d_2 := RepCitizen{Republican}
 	go citizensVote(d_2, &wg)
 
 	wg.Wait()
