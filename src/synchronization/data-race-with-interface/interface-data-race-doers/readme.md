@@ -1,6 +1,6 @@
 # Value of type interface with data races
 
-In this example we show how a global shared variable of type interface can get corrupted is the assignement operation (which is a write operation) is done concurrently by more than one goroutine and is not protected by synchronization mechanisms such as Mutexes
+In this example we show how a global shared variable of type interface can get corrupted if the assignement operation (which is a write operation) is done concurrently by more than one goroutine and is not protected by synchronization mechanisms such as Mutexes
 
 ## build
 
