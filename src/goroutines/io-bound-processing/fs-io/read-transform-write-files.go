@@ -24,8 +24,6 @@ type fileWithLines struct {
 func readFilepathsFromDir(dirPath string) []string {
 	files, err := os.ReadDir(dirPath)
 	if err != nil {
-		err := fmt.Sprintf("read dir error: %v", err)
-		fmt.Println(err)
 		panic(err)
 	}
 
