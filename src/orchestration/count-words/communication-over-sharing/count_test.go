@@ -27,7 +27,7 @@ func TestCountTotalNumberOfWords(t *testing.T) {
 
 	dirPath := testhelpers.FilePath(dirName)
 
-	expectedNumberOfWords := 18
+	expectedNumberOfWords := 25
 	gotNumberOfWords := CountTotalNumberOfWords(dirPath, numberOfReaders, false)
 
 	if gotNumberOfWords != expectedNumberOfWords {

@@ -2,6 +2,7 @@ package dictionary
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"regexp"
@@ -93,4 +94,63 @@ func (d *WordDictionary) UniqueWords() []string {
 	}
 	sort.Strings(words)
 	return words
+}
+
+type Word struct {
+	Value        string
+	Occurrencies int
+}
+
+func (d *WordDictionary) UniqueWordsWithOccurrences() []Word {
+	words := d.UniqueWords()
+	resp := make([]Word, len(words))
+	for i, v := range words {
+		wordWithOccurrencies := Word{v, d.dictionary[v]}
+		resp[i] = wordWithOccurrencies
+	}
+	return resp
+}
+
+func (d *WordDictionary) UniqueWordsSortedByOccurrences() []Word {
+	wordsByOccurrencies := make([]string, len(d.dictionary))
+	i := 0
+	for k := range d.dictionary {
+		wordsByOccurrencies[i] = k
+		i++
+	}
+	sort.SliceStable(wordsByOccurrencies, func(i, j int) bool {
+		return d.dictionary[wordsByOccurrencies[i]] > d.dictionary[wordsByOccurrencies[j]]
+	})
+
+	resp := make([]Word, len(wordsByOccurrencies))
+	for i, v := range wordsByOccurrencies {
+		wordWithOccurrencies := Word{v, d.dictionary[v]}
+		resp[i] = wordWithOccurrencies
+	}
+	return resp
+}
+
+func (d *WordDictionary) PrintData(printWords bool, byOccurrencies bool, numWords int) {
+	fmt.Printf("The number of files read is %v\n", len(d.FilesRead()))
+	fmt.Printf("The total number of words is %v\n", d.TotalNumberOfWords())
+	fmt.Printf("The number of unique words is %v\n", d.NumberOfUniqueWords())
+
+	if printWords {
+		fmt.Print("\n")
+		var wordsWithOccurrencies []Word
+		switch {
+		case byOccurrencies:
+			wordsWithOccurrencies = d.UniqueWordsSortedByOccurrences()
+		default:
+			wordsWithOccurrencies = d.UniqueWordsWithOccurrences()
+		}
+		for i := 0; i < numWords; i++ {
+			v := wordsWithOccurrencies[i]
+			if strings.TrimSpace(v.Value) == "" {
+				fmt.Println(">>>>>>>> empty word")
+			}
+			fmt.Printf("%s (%v), ", v.Value, v.Occurrencies)
+		}
+		fmt.Print("\n")
+	}
 }

@@ -91,5 +91,23 @@ printf "\n run the tests \n\n"
 
 # -count=1 forces to run also the cached tests
 go test ./... -count=1
+testExit=$?
+# if [ "$testExit" -eq 0 ]; then
+#     echo "There are test failures!"
+# else
+#     echo "There are test failures!"
+# fi
+
+# echo ">>>>>>"
+# echo "$T1"
+# echo "$?"
+# RETVAL=$?
+# if [[ ${RETVAL} != 0 ]]; then
+#   echo "There are test failures!"
+# else
+#   echo "All tests passed"
+# fi
 
 stop_servers
+
+exit $testExit

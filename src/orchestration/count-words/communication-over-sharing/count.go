@@ -4,8 +4,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/EnricoPicci/go-class/src/orchestration/count-words/dictionary"
-	"github.com/EnricoPicci/go-class/src/orchestration/count-words/dispatcher"
+	"github.com/EnricoPicci/go-class/src/orchestration/count-words/internal/dictionary"
+	"github.com/EnricoPicci/go-class/src/orchestration/count-words/internal/dispatcher"
 )
 
 func CountUniqueWords(dirPath string, numOfReaders int, _log bool) int {

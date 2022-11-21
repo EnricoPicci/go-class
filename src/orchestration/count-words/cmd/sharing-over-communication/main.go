@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math"
 	"strings"
 
 	sharingovercommunication "github.com/EnricoPicci/go-class/src/orchestration/count-words/sharing-over-communication"
@@ -11,7 +12,10 @@ import (
 
 func main() {
 	dirPath := flag.String("dir", "", "directory containing the files")
-	nummReaders := flag.Int("readers", 1, "number of concurrent readers")
+	numReaders := flag.Int("readers", 1, "number of concurrent readers")
+	printWords := flag.Bool("printWords", false, "print the unique words found")
+	numWords := flag.Int("numWords", math.MaxInt, "number of unique words to print")
+	byOccurrencies := flag.Bool("byOccurrencies", false, "print the unique words found sorted by occurrencies")
 	verbose := flag.Bool("verbose", false, "print the steps of the process")
 	flag.Parse()
 
@@ -19,16 +23,8 @@ func main() {
 		log.Fatal("The directory name is empty")
 	}
 
-	dict := sharingovercommunication.BuildDictionary(*dirPath, *nummReaders, *verbose)
+	dict := sharingovercommunication.BuildDictionary(*dirPath, *numReaders, *verbose)
 
-	fmt.Printf("The number of files read from the directory \"%v\" is %v\n", *dirPath, len(dict.FilesRead()))
-	fmt.Printf("The total number of words is %v\n", dict.TotalNumberOfWords())
-	fmt.Printf("The number of unique words is %v\n", dict.NumberOfUniqueWords())
-	fmt.Print("\n")
-	for _, v := range dict.UniqueWords() {
-		if strings.TrimSpace(v) == "" {
-			fmt.Println(">>>>>>>> empty word")
-		}
-		fmt.Print(v + ", ")
-	}
+	fmt.Printf("Files read from the directory %v\n", *dirPath)
+	dict.PrintData(*printWords, *byOccurrencies, *numWords)
 }
