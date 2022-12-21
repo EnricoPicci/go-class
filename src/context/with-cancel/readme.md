@@ -1,16 +1,17 @@
 # Manage cancellation of multiple concurrent operations executing the cancel function of a context
 
-In this example we pass a context to one goroutine that has to perform an operation which expects a context, e.g. an http request.
-Another concurrent goroutine is running another operation which ends up failing while the http request is still in flight,
-we execute the cancel function on the parent context which cancels all children contexts passed down to the goroutines, which
-causes the goroutine operations to terminate their own IO operations freeing up resources.
+This is an example where we implement an all-or-nothing kind of logic.
+
+The program tries to execute a bunch of http get requests concurrently. If any of them fails, then all in-flight requests are cancelled.
+
+The cancellation of the in-flight requests is acheived calling the cancel function returned by context.WithCancel API while creating the parent context, i.e. the context which is parent of all other contextes that are passed to the the http requests.
 
 ## build
 
 From the GO-CLASS project folder run the command
-`go build -o ./bin/with-timeout ./src/context/with-timeout`
+`go build -o ./bin/with-cancel ./src/context/with-cancel`
 
 ### run
 
 From the GO-CLASS project folder run the command
-`./bin/with-timeout`
+`./bin/with-cancel`
