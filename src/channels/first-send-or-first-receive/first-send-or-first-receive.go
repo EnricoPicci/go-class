@@ -20,8 +20,8 @@ func main() {
 		// this goroutine RECEIVES data
 		go func() {
 			<-ch
-			receiveFirstCounter++
 			mu.Lock()
+			receiveFirstCounter++
 			_, found := sendReceive[i]
 			if !found {
 				sendReceive[i] = "R"
@@ -33,8 +33,8 @@ func main() {
 		// this goroutine SENDS data
 		go func() {
 			ch <- 123
-			sendFirstCounter++
 			mu.Lock()
+			sendFirstCounter++
 			_, found := sendReceive[i]
 			if !found {
 				sendReceive[i] = "S"

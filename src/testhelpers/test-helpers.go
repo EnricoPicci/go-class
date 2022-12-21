@@ -31,10 +31,6 @@ func ProjectDir() string {
 }
 
 func FilePath(fileName string) string {
-	// if len(fileName) == 0 {
-	// 	panic("File name is an empty string")
-	// }
-	// if fileName[0] !=
 	prjDir := ProjectDir()
 	fPath := path.Join(prjDir, fileName)
 	return fPath

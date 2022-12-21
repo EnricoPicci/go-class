@@ -1,7 +1,8 @@
 # After a send/receive on an unbuffered channel, which goroutine executes the next line first?
 
-The send/receive operation is the only atomic operation which governs channels.
-The receive completes nanoseconds before the send but this does not guarantee which is the goroutine that will execute the next line of code.
+The send/receive operation is the only atomic operation which governs channels. This means that the send/receive is a point of synchronization for the 2 goroutines (the one sending and the one receiving) in the sense that both have to wait for each other to complete the send and receive respectively.
+
+After the send and receive operations complete (one immediately after the other, e.g. the receive completes nanoseconds before the send) there si no guarantee about which goroutine will execute the next line of code.
 
 ## build
 

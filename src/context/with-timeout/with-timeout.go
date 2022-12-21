@@ -71,5 +71,5 @@ func executeWithTimeout(url string, d time.Duration) {
 		panic(err)
 	}
 
-	fmt.Printf("%v have been read in %v ms", len(body), time.Since(start).Milliseconds())
+	fmt.Printf("%v bytes have been read in %v ms", len(body), time.Since(start).Milliseconds())
 }

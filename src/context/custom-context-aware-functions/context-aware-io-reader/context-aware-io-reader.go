@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/EnricoPicci/go-class/src/testhelpers"
@@ -57,20 +56,14 @@ func main() {
 	// use a small buffer - see https://pkg.go.dev/io#CopyBuffer)
 	var w strings.Builder
 
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go copy(&w, slowReader, &wg)
-
-	wg.Wait()
+	copy(&w, slowReader)
 
 	fmt.Printf("Heve been able to copy\n %v chars\n", len(w.String()))
 
 	fmt.Println("Program terminating")
 }
 
-func copy(w io.Writer, r io.Reader, wg *sync.WaitGroup) {
-	defer wg.Done()
-
+func copy(w io.Writer, r io.Reader) {
 	buf := make([]byte, 1024)
 
 	// we use io.CopyBuffer since we want to set a buffer small enough to read only a part of the file

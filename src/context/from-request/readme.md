@@ -18,7 +18,7 @@ In order to generate a timeout error start the server running the following comm
 From the GO-CLASS project folder run the command
 `./bin/from-request-server`
 
-and then open a browser and request http://localhost:port/process.
+and then open a browser and request http://localhost:8080/process.
 
 The reason this generates a timeout is that the detault timeout is 1 millisecond, too little to complete the http get request that the processing function executes. In this case we see on the server console that the error is "Request cancelled".
 
@@ -29,7 +29,7 @@ If we want a successful execution of the request we have to run the following co
 From the GO-CLASS project folder run the command
 `./bin/from-request-server -timeout 1000`
 
-and then open a browser and request http://localhost:port/process.
+and then open a browser and request http://localhost:8080/process.
 
 A timeout of 1.000 milliseconds should be enough to complete the http request that the processing function executes.
 
@@ -40,7 +40,7 @@ In order to generate a cancel error start the server running the following comma
 From the GO-CLASS project folder run the command
 `./bin/from-request-server -timeout 100000 -waitCancel true`
 
-and then open a browser and request http://localhost:port/process.
+and then open a browser and request http://localhost:8080/process.
 
 The request issued by the browser remains waiting for the cancellation signal that is fired when the browser tab is closed. In this case we see on the server console that the error is "Request cancelled".
 
