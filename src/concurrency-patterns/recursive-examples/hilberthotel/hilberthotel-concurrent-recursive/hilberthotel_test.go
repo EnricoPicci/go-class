@@ -3,6 +3,8 @@ package main
 import (
 	"sort"
 	"testing"
+
+	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
 
 func TestRoomKeysClerk_10(t *testing.T) {
@@ -28,26 +30,26 @@ func TestHilbertHospitality(t *testing.T) {
 	keysCh := make(chan int)
 	go RoomKeysClerk(11, keysCh)
 
-	hilbertCh := make(chan WelcomeKit)
+	hilbertCh := make(chan []hilberthotel.WelcomeKit)
 	go BusClerk(1, keysCh, hilbertCh)
 
-	kits := []WelcomeKit{}
-	for kit := range hilbertCh {
-		kits = append(kits, kit)
+	kits := []hilberthotel.WelcomeKit{}
+	for busKits := range hilbertCh {
+		kits = append(kits, busKits...)
 	}
 
-	expectedKits := []WelcomeKit{
-		{1, 1, 1},
-		{1, 2, 3},
-		{1, 3, 6},
-		{1, 4, 10},
-		{2, 1, 2},
-		{2, 2, 5},
-		{2, 3, 9},
-		{3, 1, 4},
-		{3, 2, 8},
-		{4, 1, 7},
-		{5, 1, 11},
+	expectedKits := []hilberthotel.WelcomeKit{
+		{BusNumber: 1, PassengerNumber: 1, RoomNumber: 1},
+		{BusNumber: 1, PassengerNumber: 2, RoomNumber: 3},
+		{BusNumber: 1, PassengerNumber: 3, RoomNumber: 6},
+		{BusNumber: 1, PassengerNumber: 4, RoomNumber: 10},
+		{BusNumber: 2, PassengerNumber: 1, RoomNumber: 2},
+		{BusNumber: 2, PassengerNumber: 2, RoomNumber: 5},
+		{BusNumber: 2, PassengerNumber: 3, RoomNumber: 9},
+		{BusNumber: 3, PassengerNumber: 1, RoomNumber: 4},
+		{BusNumber: 3, PassengerNumber: 2, RoomNumber: 8},
+		{BusNumber: 4, PassengerNumber: 1, RoomNumber: 7},
+		{BusNumber: 5, PassengerNumber: 1, RoomNumber: 11},
 	}
 
 	expectedNumOfKits := len(expectedKits)
