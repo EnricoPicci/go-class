@@ -27,26 +27,32 @@ func main() {
 }
 
 func executeConcurrentlyAllOrNothing(urls []string) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	// the parent context is created as well as the cancel function for it (use parentCtx, parentCancel names instead of the conventional ctx, cancel
+	// with the aim to increase the clarity of the example)
+	parentCtx, parentCancel := context.WithCancel(context.Background())
+	defer parentCancel()
 
 	var wg sync.WaitGroup
 	wg.Add(len(urls))
 
+	// launch the requests in parallel using one goroutine per request
 	for _, url := range urls {
-		go executeGet(ctx, url, cancel, &wg)
+		go executeGet(parentCtx, url, parentCancel, &wg)
 	}
 
 	wg.Wait()
 
 }
 
-func executeGet(ctx context.Context, url string, cancel context.CancelFunc, wg *sync.WaitGroup) {
+// the context passed to this function is a child of the parent context created by its caller, i.e. the function executeConcurrentlyAllOrNothing
+// the cancel function passed, on the contrary, is the function that will cancel the parent context and, therefore, also all of its children
+func executeGet(childCtx context.Context, url string, parentCancel context.CancelFunc, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	start := time.Now()
 
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	// we pass childCtx to each http request - when the parent context is cancelled, then all of its children contexts will be cancelled
+	req, err := http.NewRequestWithContext(childCtx, "GET", url, nil)
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
@@ -54,11 +60,13 @@ func executeGet(ctx context.Context, url string, cancel context.CancelFunc, wg *
 	client := http.DefaultClient
 	resp, err := client.Do(req)
 	if err != nil {
-		cancel()
+		// if an error occurs, then the parent context is cancelled, causing all of its children to be cancelled
+		parentCancel()
 		fmt.Printf("- An error %v has cancelled the get %v\n", err, url)
 		return
 	}
 	defer resp.Body.Close()
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
