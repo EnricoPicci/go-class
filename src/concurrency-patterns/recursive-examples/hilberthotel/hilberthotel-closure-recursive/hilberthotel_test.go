@@ -1,4 +1,4 @@
-package main
+package hilberthotelclosurerecursive
 
 import (
 	"sort"
@@ -9,7 +9,7 @@ import (
 
 func TestHilbertHospitality(t *testing.T) {
 
-	kits := Hilbert(11)
+	kits := GoHilbert(11, true)
 
 	expectedKits := []hilberthotel.WelcomeKit{
 		{BusNumber: 1, PassengerNumber: 1, RoomNumber: 1},
@@ -49,7 +49,7 @@ func TestHilbertHospitality(t *testing.T) {
 func TestGoHilbertMassive(t *testing.T) {
 	numOfPassengers := 1000000
 
-	kits := Hilbert(numOfPassengers)
+	kits := GoHilbert(numOfPassengers, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

@@ -1,4 +1,4 @@
-package main
+package hilberthotelclosurerecursive
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ func BusClerk(busNumber int) func(i int) hilberthotel.WelcomeKit {
 	}
 }
 
-func Hilbert(upTo int) []hilberthotel.WelcomeKit {
+func GoHilbert(upTo int, verbose bool) []hilberthotel.WelcomeKit {
 	var wellcomeKits = []hilberthotel.WelcomeKit{}
 	var firstBusClerk = BusClerk(1)
 	for i := 1; i <= upTo; i++ {
@@ -34,8 +34,10 @@ func Hilbert(upTo int) []hilberthotel.WelcomeKit {
 		wellcomeKits = append(wellcomeKits, kit)
 	}
 
-	fmt.Println()
-	fmt.Printf("%v guests have been given a room by Hilber at his Hotel\n", upTo)
+	if verbose {
+		fmt.Println()
+		fmt.Printf("%v guests have been given a room by Hilber at his Hotel\n", upTo)
+	}
 
 	return wellcomeKits
 }

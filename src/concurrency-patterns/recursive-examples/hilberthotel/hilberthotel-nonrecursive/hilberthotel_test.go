@@ -1,4 +1,4 @@
-package main
+package hilberthotelnonrecursive
 
 import (
 	"sort"
@@ -48,5 +48,9 @@ func TestWelcomeKitsForBus(t *testing.T) {
 func TestGoHilbertMassive(t *testing.T) {
 	numOfPassengers := 1000000
 
-	GoHilbert(numOfPassengers)
+	kits := GoHilbert(numOfPassengers, true)
+
+	if len(kits) != numOfPassengers {
+		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
+	}
 }

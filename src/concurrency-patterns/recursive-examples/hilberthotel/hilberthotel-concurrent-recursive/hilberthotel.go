@@ -1,4 +1,4 @@
-package main
+package hilberthotelconcurrentrecursive
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func RoomKeysClerk(upTo int, keysCh chan<- int) {
 	close(keysCh)
 }
 
-func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, parallelism int) {
+func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, buffer int) {
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh chan int
@@ -23,8 +23,8 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	for roomKey := range roomKeysCh {
 		count++
 		if nextClerkCh == nil {
-			nextClerkCh = make(chan int, parallelism)
-			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, parallelism)
+			nextClerkCh = make(chan int, buffer)
+			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, buffer)
 		}
 		if count == passengerNumber {
 			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey)
@@ -44,23 +44,25 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	}
 }
 
-func GoHilbert(upTo int, parallelism int) []hilberthotel.WelcomeKit {
-	if parallelism < 0 {
-		parallelism = 0
+func GoHilbert(upTo int, buffer int, verbose bool) []hilberthotel.WelcomeKit {
+	if buffer < 0 {
+		buffer = 0
 	}
-	keysCh := make(chan int, parallelism)
+	keysCh := make(chan int, buffer)
 	go RoomKeysClerk(upTo, keysCh)
 
-	hilbertCh := make(chan []hilberthotel.WelcomeKit, parallelism)
-	go BusClerk(1, keysCh, hilbertCh, parallelism)
+	hilbertCh := make(chan []hilberthotel.WelcomeKit, buffer)
+	go BusClerk(1, keysCh, hilbertCh, buffer)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
 		kits = append(kits, busKits...)
 	}
 
-	fmt.Println()
-	fmt.Printf("%v guests have been given a room by Hilber at his Hotel\n", len(kits))
+	if verbose {
+		fmt.Println()
+		fmt.Printf("%v guests have been given a room by Hilber at his Hotel\n", len(kits))
+	}
 
 	return kits
 }

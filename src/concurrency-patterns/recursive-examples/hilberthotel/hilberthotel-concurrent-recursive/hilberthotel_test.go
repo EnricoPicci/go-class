@@ -1,4 +1,4 @@
-package main
+package hilberthotelconcurrentrecursive
 
 import (
 	"sort"
@@ -27,13 +27,13 @@ func TestRoomKeysClerk_10(t *testing.T) {
 }
 
 func TestHilbertHospitality(t *testing.T) {
-	parallelism := 10
+	buffer := 10
 
 	keysCh := make(chan int)
 	go RoomKeysClerk(11, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit)
-	go BusClerk(1, keysCh, hilbertCh, parallelism)
+	go BusClerk(1, keysCh, hilbertCh, buffer)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
@@ -76,10 +76,10 @@ func TestHilbertHospitality(t *testing.T) {
 }
 
 func TestGoHilbertMassive(t *testing.T) {
-	parallelism := 100
+	buffer := 100
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, parallelism)
+	kits := GoHilbert(numOfPassengers, buffer, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

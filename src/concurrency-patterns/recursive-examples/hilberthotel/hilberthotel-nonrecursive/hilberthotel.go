@@ -1,4 +1,4 @@
-package main
+package hilberthotelnonrecursive
 
 import (
 	"fmt"
@@ -54,13 +54,13 @@ rowsReady:
 	return welcomeKits
 }
 
-func GoHilbert(upTo int) {
-	Kits := WelcomeKits(upTo)
+func GoHilbert(upTo int, verbose bool) []hilberthotel.WelcomeKit {
+	kits := WelcomeKits(upTo)
 
-	for _, Kit := range Kits {
-		fmt.Println(Kit)
+	if verbose {
+		fmt.Println()
+		fmt.Printf("%v guests have been given a room by Hilber at his Hotel", len(kits))
 	}
 
-	fmt.Println()
-	fmt.Printf("%v guests have been given a room by Hilber at his Hotel", len(Kits))
+	return kits
 }
