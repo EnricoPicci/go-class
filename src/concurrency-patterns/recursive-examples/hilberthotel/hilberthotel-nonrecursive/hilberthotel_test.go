@@ -45,6 +45,8 @@ func TestWelcomeKitsForBus(t *testing.T) {
 	}
 }
 
-func TestGoHilbert(t *testing.T) {
-	GoHilbert(16)
+func TestGoHilbertMassive(t *testing.T) {
+	numOfPassengers := 1000000
+
+	GoHilbert(numOfPassengers)
 }

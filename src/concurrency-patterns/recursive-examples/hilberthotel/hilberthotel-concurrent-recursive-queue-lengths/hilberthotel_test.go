@@ -33,7 +33,8 @@ func TestHilbertHospitality(t *testing.T) {
 	go RoomKeysClerk(11, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit)
-	go BusClerk(1, keysCh, hilbertCh, parallelism)
+	queueLengthsCh := make(chan QueueLengths, parallelism)
+	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, parallelism)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
@@ -75,13 +76,46 @@ func TestHilbertHospitality(t *testing.T) {
 	}
 }
 
+func TestQueueLengths(t *testing.T) {
+	parallelism := 1
+	numOfPassengers := 11
+
+	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
+
+	if len(kits) != numOfPassengers {
+		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
+	}
+	expectedNumOfBusses := 5
+	gotNumOfBusses := len(queueLengths)
+	if gotNumOfBusses != expectedNumOfBusses {
+		t.Errorf("The number of queue lengths created should be %v - instead is %v", expectedNumOfBusses, gotNumOfBusses)
+	}
+}
+
 func TestGoHilbertMassive(t *testing.T) {
 	parallelism := 100
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, parallelism)
+	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
+	}
+	if len(queueLengths) == 0 {
+		t.Error("No queue lengths created")
+	}
+}
+
+func TestGoHilbertWithParallelism(t *testing.T) {
+	parallelism := 10
+	numOfPassengers := 1000
+
+	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
+
+	if len(kits) != numOfPassengers {
+		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
+	}
+	if len(queueLengths) == 0 {
+		t.Error("No queue lengths created")
 	}
 }

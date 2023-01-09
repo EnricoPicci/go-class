@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
@@ -13,18 +14,26 @@ func RoomKeysClerk(upTo int, keysCh chan<- int) {
 	close(keysCh)
 }
 
-func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, parallelism int) {
+type QueueLengths struct {
+	lengths   []int
+	busNumber int
+}
+
+func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, queueLengthsCh chan<- QueueLengths, parallelism int) {
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh chan int
 
+	queueLengths := QueueLengths{[]int{}, busNumber}
+
 	welcomeKits := []hilberthotel.WelcomeKit{}
 
 	for roomKey := range roomKeysCh {
+		queueLengths.lengths = append(queueLengths.lengths, len(roomKeysCh))
 		count++
 		if nextClerkCh == nil {
 			nextClerkCh = make(chan int, parallelism)
-			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, parallelism)
+			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, queueLengthsCh, parallelism)
 		}
 		if count == passengerNumber {
 			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey)
@@ -38,13 +47,15 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 
 	if nextClerkCh != nil {
 		welcomeKitsCh <- welcomeKits
+		queueLengthsCh <- queueLengths
 		close(nextClerkCh)
 	} else {
 		close(welcomeKitsCh)
+		close(queueLengthsCh)
 	}
 }
 
-func GoHilbert(upTo int, parallelism int) []hilberthotel.WelcomeKit {
+func GoHilbert(upTo int, parallelism int) ([]hilberthotel.WelcomeKit, []QueueLengths) {
 	if parallelism < 0 {
 		parallelism = 0
 	}
@@ -52,15 +63,28 @@ func GoHilbert(upTo int, parallelism int) []hilberthotel.WelcomeKit {
 	go RoomKeysClerk(upTo, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit, parallelism)
-	go BusClerk(1, keysCh, hilbertCh, parallelism)
+	queueLengthsCh := make(chan QueueLengths, parallelism)
+	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, parallelism)
+
+	queueLengths := []QueueLengths{}
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for qL := range queueLengthsCh {
+			queueLengths = append(queueLengths, qL)
+		}
+	}()
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
 		kits = append(kits, busKits...)
 	}
 
+	wg.Wait()
+
 	fmt.Println()
 	fmt.Printf("%v guests have been given a room by Hilber at his Hotel\n", len(kits))
 
-	return kits
+	return kits, queueLengths
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func NewWelcomeKit(busNumber int, passengerNumber int, row []int) hilberthotel.WelcomeKit {
-	return hilberthotel.WelcomeKit{BusNumber: busNumber, PassengerNumber: passengerNumber, RoomNumber: row[len(row)-busNumber]}
+	return hilberthotel.NewWelcomeKit(busNumber, passengerNumber, row[len(row)-busNumber])
 }
 
 func WelcomeKits(upTo int) []hilberthotel.WelcomeKit {

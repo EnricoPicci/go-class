@@ -45,3 +45,13 @@ func TestHilbertHospitality(t *testing.T) {
 		}
 	}
 }
+
+func TestGoHilbertMassive(t *testing.T) {
+	numOfPassengers := 1000000
+
+	kits := Hilbert(numOfPassengers)
+
+	if len(kits) != numOfPassengers {
+		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
+	}
+}
