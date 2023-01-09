@@ -3,12 +3,15 @@ package hilberthotelnonrecursive
 import (
 	"sort"
 	"testing"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
 
 func TestWelcomeKitsForBus(t *testing.T) {
-	Kits := WelcomeKits(11)
+	delay := 10 * time.Microsecond
+
+	Kits := WelcomeKits(11, delay)
 
 	expectedKits := []hilberthotel.WelcomeKit{
 		{BusNumber: 1, PassengerNumber: 1, RoomNumber: 1},
@@ -46,9 +49,10 @@ func TestWelcomeKitsForBus(t *testing.T) {
 }
 
 func TestGoHilbertMassive(t *testing.T) {
+	delay := 10 * time.Microsecond
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, true)
+	kits := GoHilbert(numOfPassengers, delay, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

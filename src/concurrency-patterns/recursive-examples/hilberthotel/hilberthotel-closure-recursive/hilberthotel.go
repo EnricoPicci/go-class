@@ -2,11 +2,12 @@ package hilberthotelclosurerecursive
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
 
-func BusClerk(busNumber int) func(i int) hilberthotel.WelcomeKit {
+func BusClerk(busNumber int, delay time.Duration) func(i int) hilberthotel.WelcomeKit {
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh func(i int) hilberthotel.WelcomeKit
@@ -16,19 +17,19 @@ func BusClerk(busNumber int) func(i int) hilberthotel.WelcomeKit {
 		if count == passengerNumber {
 			passengerNumber++
 			count = 0
-			return hilberthotel.NewWelcomeKit(busNumber, passengerNumber-1, i)
+			return hilberthotel.NewWelcomeKit(busNumber, passengerNumber-1, i, delay)
 		}
 
 		if nextClerkCh == nil {
-			nextClerkCh = BusClerk(busNumber + 1)
+			nextClerkCh = BusClerk(busNumber+1, delay)
 		}
 		return nextClerkCh(i)
 	}
 }
 
-func GoHilbert(upTo int, verbose bool) []hilberthotel.WelcomeKit {
+func GoHilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
 	var wellcomeKits = []hilberthotel.WelcomeKit{}
-	var firstBusClerk = BusClerk(1)
+	var firstBusClerk = BusClerk(1, delay)
 	for i := 1; i <= upTo; i++ {
 		kit := firstBusClerk(i)
 		wellcomeKits = append(wellcomeKits, kit)

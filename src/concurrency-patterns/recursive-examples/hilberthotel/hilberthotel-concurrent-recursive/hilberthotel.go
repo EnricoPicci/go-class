@@ -2,6 +2,7 @@ package hilberthotelconcurrentrecursive
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
@@ -13,7 +14,7 @@ func RoomKeysClerk(upTo int, keysCh chan<- int) {
 	close(keysCh)
 }
 
-func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, buffer int) {
+func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, buffer int, delay time.Duration) {
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh chan int
@@ -24,10 +25,10 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 		count++
 		if nextClerkCh == nil {
 			nextClerkCh = make(chan int, buffer)
-			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, buffer)
+			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, buffer, delay)
 		}
 		if count == passengerNumber {
-			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey)
+			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey, delay)
 			welcomeKits = append(welcomeKits, kit)
 			passengerNumber++
 			count = 0
@@ -44,7 +45,7 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	}
 }
 
-func GoHilbert(upTo int, buffer int, verbose bool) []hilberthotel.WelcomeKit {
+func GoHilbert(upTo int, buffer int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
 	if buffer < 0 {
 		buffer = 0
 	}
@@ -52,7 +53,7 @@ func GoHilbert(upTo int, buffer int, verbose bool) []hilberthotel.WelcomeKit {
 	go RoomKeysClerk(upTo, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit, buffer)
-	go BusClerk(1, keysCh, hilbertCh, buffer)
+	go BusClerk(1, keysCh, hilbertCh, buffer, delay)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {

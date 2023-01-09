@@ -2,15 +2,16 @@ package hilberthotelnonrecursive
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
 
-func NewWelcomeKit(busNumber int, passengerNumber int, row []int) hilberthotel.WelcomeKit {
-	return hilberthotel.NewWelcomeKit(busNumber, passengerNumber, row[len(row)-busNumber])
+func NewWelcomeKit(busNumber int, passengerNumber int, row []int, delay time.Duration) hilberthotel.WelcomeKit {
+	return hilberthotel.NewWelcomeKit(busNumber, passengerNumber, row[len(row)-busNumber], delay)
 }
 
-func WelcomeKits(upTo int) []hilberthotel.WelcomeKit {
+func WelcomeKits(upTo int, delay time.Duration) []hilberthotel.WelcomeKit {
 	rows := [][]int{}
 	counter := 0
 	i := 0
@@ -42,7 +43,7 @@ rowsReady:
 		passengerNumbersForBus = append(passengerNumbersForBus, 1)
 		for busNumber := 0; busNumber < rowNumber; busNumber++ {
 			passengerNumber := passengerNumbersForBus[busNumber]
-			welcomeKit := NewWelcomeKit(busNumber+1, passengerNumber, row)
+			welcomeKit := NewWelcomeKit(busNumber+1, passengerNumber, row, delay)
 			if welcomeKit.RoomNumber > 0 {
 				welcomeKits = append(welcomeKits, welcomeKit)
 			}
@@ -54,8 +55,8 @@ rowsReady:
 	return welcomeKits
 }
 
-func GoHilbert(upTo int, verbose bool) []hilberthotel.WelcomeKit {
-	kits := WelcomeKits(upTo)
+func GoHilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
+	kits := WelcomeKits(upTo, delay)
 
 	if verbose {
 		fmt.Println()

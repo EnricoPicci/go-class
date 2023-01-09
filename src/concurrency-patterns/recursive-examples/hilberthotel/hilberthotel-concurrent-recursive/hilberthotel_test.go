@@ -3,6 +3,7 @@ package hilberthotelconcurrentrecursive
 import (
 	"sort"
 	"testing"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
@@ -28,12 +29,13 @@ func TestRoomKeysClerk_10(t *testing.T) {
 
 func TestHilbertHospitality(t *testing.T) {
 	buffer := 10
+	delay := 10 * time.Microsecond
 
 	keysCh := make(chan int)
 	go RoomKeysClerk(11, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit)
-	go BusClerk(1, keysCh, hilbertCh, buffer)
+	go BusClerk(1, keysCh, hilbertCh, buffer, delay)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
@@ -77,9 +79,10 @@ func TestHilbertHospitality(t *testing.T) {
 
 func TestGoHilbertMassive(t *testing.T) {
 	buffer := 100
+	delay := 10 * time.Microsecond
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, buffer, true)
+	kits := GoHilbert(numOfPassengers, buffer, delay, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

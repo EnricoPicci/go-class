@@ -2,6 +2,7 @@ package benchmarks
 
 import (
 	"testing"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 	closurerecursive "github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel/hilberthotel-closure-recursive"
@@ -10,13 +11,14 @@ import (
 )
 
 var numOfPassengers = 10000
+var delay = 1 * time.Microsecond
 
 var kits []hilberthotel.WelcomeKit
 
 func BenchmarkNonRecursive(b *testing.B) {
 	var _kits []hilberthotel.WelcomeKit
 	for i := 0; i < b.N; i++ {
-		_kits = nonrecursive.GoHilbert(numOfPassengers, false)
+		_kits = nonrecursive.GoHilbert(numOfPassengers, delay, false)
 	}
 	kits = _kits
 }
@@ -24,7 +26,7 @@ func BenchmarkNonRecursive(b *testing.B) {
 func BenchmarkClosureRecursive(b *testing.B) {
 	var _kits []hilberthotel.WelcomeKit
 	for i := 0; i < b.N; i++ {
-		_kits = closurerecursive.GoHilbert(numOfPassengers, false)
+		_kits = closurerecursive.GoHilbert(numOfPassengers, delay, false)
 	}
 	kits = _kits
 }
@@ -33,7 +35,7 @@ func BenchmarkConcurrencyRecursiveBuffer0(b *testing.B) {
 	buffer := 0
 	var _kits []hilberthotel.WelcomeKit
 	for i := 0; i < b.N; i++ {
-		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, false)
+		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, delay, false)
 	}
 	kits = _kits
 }
@@ -42,7 +44,7 @@ func BenchmarkConcurrencyRecursiveBuffer100(b *testing.B) {
 	buffer := 100
 	var _kits []hilberthotel.WelcomeKit
 	for i := 0; i < b.N; i++ {
-		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, false)
+		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, delay, false)
 	}
 	kits = _kits
 }
@@ -51,7 +53,7 @@ func BenchmarkConcurrencyRecursiveBuffer1000(b *testing.B) {
 	buffer := 1000
 	var _kits []hilberthotel.WelcomeKit
 	for i := 0; i < b.N; i++ {
-		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, false)
+		_kits = concurrencyrecursive.GoHilbert(numOfPassengers, buffer, delay, false)
 	}
 	kits = _kits
 }

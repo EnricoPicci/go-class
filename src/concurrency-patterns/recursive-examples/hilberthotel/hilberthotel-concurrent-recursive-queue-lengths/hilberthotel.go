@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/EnricoPicci/go-class/src/concurrency-patterns/recursive-examples/hilberthotel"
 )
@@ -20,6 +21,7 @@ type QueueLengths struct {
 }
 
 func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, queueLengthsCh chan<- QueueLengths, parallelism int) {
+	delay := 10 * time.Microsecond
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh chan int
@@ -36,7 +38,7 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, queueLengthsCh, parallelism)
 		}
 		if count == passengerNumber {
-			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey)
+			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey, delay)
 			welcomeKits = append(welcomeKits, kit)
 			passengerNumber++
 			count = 0
