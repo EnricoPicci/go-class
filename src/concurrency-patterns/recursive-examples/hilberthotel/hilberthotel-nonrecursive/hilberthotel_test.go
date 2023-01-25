@@ -48,11 +48,11 @@ func TestWelcomeKitsForBus(t *testing.T) {
 	}
 }
 
-func TestGoHilbertMassive(t *testing.T) {
+func TestHilbertMassive(t *testing.T) {
 	delay := 10 * time.Microsecond
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, delay, true)
+	kits := Hilbert(numOfPassengers, delay, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

@@ -45,7 +45,7 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	}
 }
 
-func GoHilbert(upTo int, buffer int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
+func Hilbert(upTo int, buffer int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
 	if buffer < 0 {
 		buffer = 0
 	}

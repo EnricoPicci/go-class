@@ -10,7 +10,7 @@ import (
 func BusClerk(busNumber int, delay time.Duration) func(i int) hilberthotel.WelcomeKit {
 	var count = 0
 	var passengerNumber = 1
-	var nextClerkCh func(i int) hilberthotel.WelcomeKit
+	var nextClerk func(i int) hilberthotel.WelcomeKit
 
 	return func(i int) hilberthotel.WelcomeKit {
 		count++
@@ -20,14 +20,14 @@ func BusClerk(busNumber int, delay time.Duration) func(i int) hilberthotel.Welco
 			return hilberthotel.NewWelcomeKit(busNumber, passengerNumber-1, i, delay)
 		}
 
-		if nextClerkCh == nil {
-			nextClerkCh = BusClerk(busNumber+1, delay)
+		if nextClerk == nil {
+			nextClerk = BusClerk(busNumber+1, delay)
 		}
-		return nextClerkCh(i)
+		return nextClerk(i)
 	}
 }
 
-func GoHilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
+func Hilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
 	var wellcomeKits = []hilberthotel.WelcomeKit{}
 	var firstBusClerk = BusClerk(1, delay)
 	for i := 1; i <= upTo; i++ {

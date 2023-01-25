@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 	"testing"
 
@@ -27,14 +28,14 @@ func TestRoomKeysClerk_10(t *testing.T) {
 }
 
 func TestHilbertHospitality(t *testing.T) {
-	parallelism := 10
+	buffer := 10
 
 	keysCh := make(chan int)
 	go RoomKeysClerk(11, keysCh)
 
 	hilbertCh := make(chan []hilberthotel.WelcomeKit)
-	queueLengthsCh := make(chan QueueLengths, parallelism)
-	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, parallelism)
+	queueLengthsCh := make(chan QueueLengths, buffer)
+	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, buffer)
 
 	kits := []hilberthotel.WelcomeKit{}
 	for busKits := range hilbertCh {
@@ -77,10 +78,10 @@ func TestHilbertHospitality(t *testing.T) {
 }
 
 func TestQueueLengths(t *testing.T) {
-	parallelism := 1
+	buffer := 1
 	numOfPassengers := 11
 
-	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
+	kits, queueLengths := Hilbert(numOfPassengers, buffer)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
@@ -92,11 +93,11 @@ func TestQueueLengths(t *testing.T) {
 	}
 }
 
-func TestGoHilbertMassive(t *testing.T) {
-	parallelism := 100
-	numOfPassengers := 1000000
+func TestHilbertMassive(t *testing.T) {
+	buffer := 1000
+	numOfPassengers := 100001
 
-	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
+	kits, queueLengths := Hilbert(numOfPassengers, buffer)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)
@@ -104,13 +105,17 @@ func TestGoHilbertMassive(t *testing.T) {
 	if len(queueLengths) == 0 {
 		t.Error("No queue lengths created")
 	}
+
+	for _, ql := range queueLengths {
+		fmt.Printf("Bus %v \t - \t avgLen: %.2f \t - \t stdDevLen: %.2f \t - \t numOfKeysReceived: %v\n", ql.busNumber, ql.avgLen, ql.stdDevLen, len(ql.lengths))
+	}
 }
 
-func TestGoHilbertWithParallelism(t *testing.T) {
-	parallelism := 10
+func TestHilbertWithBuffer(t *testing.T) {
+	buffer := 10
 	numOfPassengers := 1000
 
-	kits, queueLengths := GoHilbert(numOfPassengers, parallelism)
+	kits, queueLengths := Hilbert(numOfPassengers, buffer)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sync"
 	"time"
 
@@ -17,16 +18,18 @@ func RoomKeysClerk(upTo int, keysCh chan<- int) {
 
 type QueueLengths struct {
 	lengths   []int
+	avgLen    float64
+	stdDevLen float64
 	busNumber int
 }
 
-func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, queueLengthsCh chan<- QueueLengths, parallelism int) {
+func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilberthotel.WelcomeKit, queueLengthsCh chan<- QueueLengths, buffer int) {
 	delay := 10 * time.Microsecond
 	var count = 0
 	var passengerNumber = 1
 	var nextClerkCh chan int
 
-	queueLengths := QueueLengths{[]int{}, busNumber}
+	queueLengths := QueueLengths{lengths: []int{}, busNumber: busNumber}
 
 	welcomeKits := []hilberthotel.WelcomeKit{}
 
@@ -34,8 +37,8 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 		queueLengths.lengths = append(queueLengths.lengths, len(roomKeysCh))
 		count++
 		if nextClerkCh == nil {
-			nextClerkCh = make(chan int, parallelism)
-			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, queueLengthsCh, parallelism)
+			nextClerkCh = make(chan int, buffer)
+			go BusClerk(busNumber+1, nextClerkCh, welcomeKitsCh, queueLengthsCh, buffer)
 		}
 		if count == passengerNumber {
 			kit := hilberthotel.NewWelcomeKit(busNumber, passengerNumber, roomKey, delay)
@@ -48,6 +51,10 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	}
 
 	if nextClerkCh != nil {
+		avgLen, stdDevLen := avgStdDev(queueLengths.lengths)
+		queueLengths.avgLen = avgLen
+		queueLengths.stdDevLen = stdDevLen
+
 		welcomeKitsCh <- welcomeKits
 		queueLengthsCh <- queueLengths
 		close(nextClerkCh)
@@ -57,16 +64,30 @@ func BusClerk(busNumber int, roomKeysCh <-chan int, welcomeKitsCh chan<- []hilbe
 	}
 }
 
-func GoHilbert(upTo int, parallelism int) ([]hilberthotel.WelcomeKit, []QueueLengths) {
-	if parallelism < 0 {
-		parallelism = 0
+func avgStdDev(intSlice []int) (mean float64, stdDev float64) {
+	for _, v := range intSlice {
+		mean += float64(v)
 	}
-	keysCh := make(chan int, parallelism)
+	mean = float64(mean) / float64(len(intSlice))
+
+	for _, v := range intSlice {
+		stdDev += math.Pow(float64(v)-mean, 2)
+	}
+	stdDev = math.Sqrt(stdDev / float64(len(intSlice)))
+
+	return mean, stdDev
+}
+
+func Hilbert(upTo int, buffer int) ([]hilberthotel.WelcomeKit, []QueueLengths) {
+	if buffer < 0 {
+		buffer = 0
+	}
+	keysCh := make(chan int, buffer)
 	go RoomKeysClerk(upTo, keysCh)
 
-	hilbertCh := make(chan []hilberthotel.WelcomeKit, parallelism)
-	queueLengthsCh := make(chan QueueLengths, parallelism)
-	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, parallelism)
+	hilbertCh := make(chan []hilberthotel.WelcomeKit, buffer)
+	queueLengthsCh := make(chan QueueLengths, buffer)
+	go BusClerk(1, keysCh, hilbertCh, queueLengthsCh, buffer)
 
 	queueLengths := []QueueLengths{}
 	var wg sync.WaitGroup

@@ -11,7 +11,7 @@ import (
 func TestHilbertHospitality(t *testing.T) {
 	delay := 10 * time.Microsecond
 
-	kits := GoHilbert(11, delay, true)
+	kits := Hilbert(11, delay, true)
 
 	expectedKits := []hilberthotel.WelcomeKit{
 		{BusNumber: 1, PassengerNumber: 1, RoomNumber: 1},
@@ -48,11 +48,11 @@ func TestHilbertHospitality(t *testing.T) {
 	}
 }
 
-func TestGoHilbertMassive(t *testing.T) {
+func TestHilbertMassive(t *testing.T) {
 	delay := 10 * time.Microsecond
 	numOfPassengers := 1000000
 
-	kits := GoHilbert(numOfPassengers, delay, true)
+	kits := Hilbert(numOfPassengers, delay, true)
 
 	if len(kits) != numOfPassengers {
 		t.Errorf("Created %v kits ==> expected %v", len(kits), numOfPassengers)

@@ -55,7 +55,7 @@ rowsReady:
 	return welcomeKits
 }
 
-func GoHilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
+func Hilbert(upTo int, delay time.Duration, verbose bool) []hilberthotel.WelcomeKit {
 	kits := WelcomeKits(upTo, delay)
 
 	if verbose {
