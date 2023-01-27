@@ -9,7 +9,7 @@ import (
 // t.Run method as first parameter
 func Test_Test_And_Subtest_Name(t *testing.T) {
 	gotTestName := t.Name()
-	expectedTestName := "TestFunctionToTest_Test_And_Subtest_Name"
+	expectedTestName := "Test_Test_And_Subtest_Name"
 	if gotTestName != expectedTestName {
 		t.Errorf("Test name is %v instead of %v", gotTestName, expectedTestName)
 	}
@@ -18,7 +18,7 @@ func Test_Test_And_Subtest_Name(t *testing.T) {
 	subTestName := "subtest-name"
 	t.Run(subTestName, func(t *testing.T) {
 		gotSubTestName := t.Name()
-		expectedSubTestName := "TestFunctionToTest_Test_And_Subtest_Name/subtest-name"
+		expectedSubTestName := expectedTestName + "/subtest-name"
 		if gotSubTestName != expectedSubTestName {
 			t.Errorf("Test name is %v instead of %v", gotSubTestName, expectedSubTestName)
 		}
@@ -27,7 +27,7 @@ func Test_Test_And_Subtest_Name(t *testing.T) {
 		subSubTestName := "sub-subtest-name"
 		t.Run(subSubTestName, func(t *testing.T) {
 			gotSubSubTestName := t.Name()
-			expectedSubSubTestName := "TestFunctionToTest_Test_And_Subtest_Name/subtest-name/sub-subtest-name"
+			expectedSubSubTestName := expectedSubTestName + "/sub-subtest-name"
 			if gotSubSubTestName != expectedSubSubTestName {
 				t.Errorf("Test name is %v instead of %v", gotSubSubTestName, expectedSubSubTestName)
 			}
