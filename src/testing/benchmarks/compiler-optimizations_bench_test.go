@@ -1,4 +1,4 @@
-// Example of benchmark of code that tha compiler skips since it does not change any state
+// Example of benchmark that is affected by compiler optimizations
 // https://github.com/golang/go/issues/27400#issuecomment-546513538
 
 package benchmarkspkg
@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+// BenchmarkX results are misleading since the compiler optimizes and remove the code in the for loop closure
+// The other benchmarks, which exercize the same code, show ways of avoiding compiler optimizations
 func BenchmarkX(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		f()
