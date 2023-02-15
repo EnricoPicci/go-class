@@ -12,3 +12,9 @@ This program prints the word which is most frequent in a file.
 The file path is passed as first commnad line argument.
 
 The program does not aim to be precise. For instance if the file has 2 words which have the highest count, only one will be printed.
+
+# Exercizes
+
+There are some exercizes to practice with the language.
+
+The solutions to the exercizes are provided.
