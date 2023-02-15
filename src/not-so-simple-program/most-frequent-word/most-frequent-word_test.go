@@ -13,7 +13,7 @@ func TestMostFrequentWord(t *testing.T) {
 
 	// run the checks
 
-	// check that there are 5 unique words
+	// check the most frequent word
 	expectedMostFrequetWord := "thisIsRepeated3times"
 	if expectedMostFrequetWord != mostFrequent {
 		t.Fatalf("Expected most frequent word \"%v\" - got \"%v\" \n", expectedMostFrequetWord, mostFrequent)

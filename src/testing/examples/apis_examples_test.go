@@ -34,7 +34,11 @@ func ExampleMyType_Who() {
 
 }
 
-func ExampleMyApi_error() {
-	panic("example failing")
-	// Output: I am a value of type MyType
-}
+// If the following ExampleMyApi_error is uncommented, we see that running go test on this example will generate an
+// error as if a real test had failed
+// Run the following command to see the error occurring once the example has been uncommented
+// go test -timeout 30s -run ^ExampleMyApi_error$ github.com/EnricoPicci/go-class/src/testing/examples -count=1
+// func ExampleMyApi_error() {
+// 	panic("example failing")
+// 	// Output: I am a value of type MyType
+// }
