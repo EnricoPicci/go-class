@@ -1,3 +1,6 @@
+// Run the program with the command
+// go run ./src/file-system/read-file/.
+
 package main
 
 import (
