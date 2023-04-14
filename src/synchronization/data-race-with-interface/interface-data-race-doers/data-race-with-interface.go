@@ -35,14 +35,14 @@ func (d Human) DoStuff() bool {
 	return true
 }
 
-type Machine struct {
+type Computer struct {
 	Name  string
 	Model string
 }
 
-func (d Machine) DoStuff() bool {
+func (d Computer) DoStuff() bool {
 	if d.Name != computer {
-		fmt.Printf("I am the Machine doing stuff as a %v\n", d.Name)
+		fmt.Printf("I am the Computer doing stuff as a %v\n", d.Name)
 		return false
 	}
 
@@ -69,7 +69,7 @@ func main() {
 	d_1 := Human{human, 20}
 	go doStuffManyTimes(d_1)
 
-	d_2 := Machine{computer, "M24"}
+	d_2 := Computer{computer, "M24"}
 	go doStuffManyTimes(d_2)
 
 	// stop forever used here just for the laziness of not adding wait groups

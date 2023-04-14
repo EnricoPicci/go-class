@@ -11,7 +11,7 @@ Examples of data races (and potential data corruption) a bit more complex than t
 The data race is double, caused by
 
 - an unprotected assignement (write operation) of concrete values of different types to a varable of interface type
-- methods of suche concrete types that update shared values
+- methods of such concrete types that update shared values
 
 The examples show what can heppen when
 

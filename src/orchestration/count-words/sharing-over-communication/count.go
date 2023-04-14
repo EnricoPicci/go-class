@@ -45,6 +45,9 @@ func calculatePartialResults(finalResult *dictionary.WordDictionary, fileChan <-
 		dict := dictionary.NewWordDictionary()
 		dict.CountUniqueWords(filePath)
 		mu.Lock()
+		if _log {
+			log.Printf(">>>>>>> merging file %v into final result\n", filePath)
+		}
 		finalResult.Merge(dict)
 		mu.Unlock()
 	}

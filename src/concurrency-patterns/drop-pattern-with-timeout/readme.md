@@ -20,6 +20,7 @@ These parameters have default values which can be overridden by command line par
 ## build
 
 From the GO-CLASS project folder run the command
+
 `go build -o ./bin/drop-pattern-with-timeout ./src/concurrency-patterns/drop-pattern-with-timeout`
 
 ## run
@@ -39,6 +40,7 @@ Let's consider the last request in the queue. When the last request enters the q
 So, if we put a timeout of 10000ms, we should expect to see very few, if not none, requests dropped and the max size of the queue to be close to 50.
 
 From the GO-CLASS project folder run the command
+
 `./bin/drop-pattern-with-timeout -poolSize 5 -procIntervalRatio 10 -avgReqInterval 100 -numReq 100 -timeout 10000`
 
 ### minimize the wait time by increasing the pool size
@@ -50,6 +52,7 @@ Run the same example as before with a pool of 100 workers and see the value of "
 While this is a way to reduce the wait time for each request, it has a cost represented by the time spent by workers staying idle waiting for a request to process (there are many free workers for any request coming in) See the value "Average idle time for a worker" printed on the console at the end of the processing and compare it with the value produced by the next example.
 
 From the GO-CLASS project folder run the command
+
 `./bin/drop-pattern-with-timeout -poolSize 100 -procIntervalRatio 10 -avgReqInterval 10 -numReq 1000 -timeout 1000`
 
 ### find the right balance between worker pool throughput and frequency of incoming requests
@@ -61,7 +64,9 @@ Run the same example as before with a pool of 10 workers. Given that procInterva
 If we reduce the pool size to 9, the balance is lost and the wait time tend to increase. With this configuration some requests may be dropped.
 
 From the GO-CLASS project folder run the command
+
 `./bin/drop-pattern-with-timeout -poolSize 10 -procIntervalRatio 10 -avgReqInterval 10 -numReq 1000 -timeout 1000`
+
 `./bin/drop-pattern-with-timeout -poolSize 9 -procIntervalRatio 10 -avgReqInterval 10 -numReq 1000 -timeout 1000`
 
 ### drop in case of extraordinary events
@@ -71,12 +76,15 @@ The drop pattern is mainly conceived to produce clear signals (to the clients an
 So we typically should point to a configuration that guarantees the right balance between the flow of incoming requests and the throughput of the system. When extraordinary conditions occur that slow down processing, the drop pattern drops requests that have been waiting too long generating a clear signal of an hopefully transient exceptional condition.
 
 From the GO-CLASS project folder run the command
+
 `./bin/drop-pattern-with-timeout -poolSize 10 -procIntervalRatio 10 -avgReqInterval 10 -numReq 1000 -timeout 1000 -extraordinaryEvent`
 
 ## build and run with race detector
 
 To build the package with the race detector on, from the GO-CLASS project folder run the command
-`o build -race -o ./bin/drop-pattern-with-timeout ./src/concurrency-patterns/drop-pattern-with-timeout`
+
+`go build -race -o ./bin/drop-pattern-with-timeout ./src/concurrency-patterns/drop-pattern-with-timeout`
 
 To run it, just run it with the usual commands simply writing the stdOutput to a file so that race messages (by default written on stdErr) are the only ones left on the console
+
 `./bin/drop-pattern-with-timeout -poolSize 10 -procIntervalRatio 10 -avgReqInterval 10 -numReq 1000 -timeout 1000 > race.txt`

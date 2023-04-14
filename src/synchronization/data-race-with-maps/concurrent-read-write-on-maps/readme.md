@@ -1,6 +1,6 @@
 # Concurrent read write on maps
 
-Example of how concurrent reads and writes on a shared Map can cause a runtime error since Map is not a concurrency-safe type and the Go compiler can raise a runtime error if concurrent reads and writes occur
+Example of how concurrent reads and writes on a shared Map can cause a runtime error since Map is not a concurrency-safe type and the Go runtime can raise a runtime error if concurrent reads and writes occur
 
 ### build
 

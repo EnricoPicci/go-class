@@ -7,9 +7,11 @@ The io package is not context-aware and so we create a custom function that is c
 ## build
 
 From the GO-CLASS project folder run the command
+
 `go build -o ./bin/context-aware-scanning-function ./src/context/custom-context-aware-functions/context-aware-scanning-function`
 
 ### run
 
 From the GO-CLASS project folder run the command
+
 `./bin/context-aware-scanning-function`

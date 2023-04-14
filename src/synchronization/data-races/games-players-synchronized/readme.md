@@ -1,4 +1,4 @@
-# The Game Platform generates data races
+# The Game Platform is protected from data races
 
 Protecting the access to the shared resources (maps in this example) removes the data races
 

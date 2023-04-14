@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	sendFirstCounter := 0
-	receiveFirstCounter := 0
+	sendCounter := 0
+	receiveCounter := 0
 
 	var mu sync.Mutex
 	sendReceive := make(map[int]string)
@@ -21,7 +21,7 @@ func main() {
 		go func() {
 			<-ch
 			mu.Lock()
-			receiveFirstCounter++
+			receiveCounter++
 			_, found := sendReceive[i]
 			if !found {
 				sendReceive[i] = "R"
@@ -34,7 +34,7 @@ func main() {
 		go func() {
 			ch <- 123
 			mu.Lock()
-			sendFirstCounter++
+			sendCounter++
 			_, found := sendReceive[i]
 			if !found {
 				sendReceive[i] = "S"
@@ -46,8 +46,8 @@ func main() {
 		wg.Wait()
 	}
 
-	fmt.Println(receiveFirstCounter)
-	fmt.Println(sendFirstCounter)
+	fmt.Println("Number of receive operations completed", receiveCounter)
+	fmt.Println("Number of send operations completed", sendCounter)
 	howManyReceivesFirst := 0
 	howManySendsFirst := 0
 	for _, v := range sendReceive {
