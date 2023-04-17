@@ -1,0 +1,146 @@
+[
+  {
+    "id": "1NqmAwEA-fiu5sh5yI3NRWbaQda4jTF95yKtdgY-HMRQ",
+    "name": "0000 - Go class - index"
+  },
+  {
+    "id": "1j_89Wgu50dfHuf5Cdb7qShAF0_C9cB7ao6JpqgMe9Mw",
+    "name": "0000 - Go class - web index "
+  },
+  {
+    "id": "1-49suzQXveAJZIgudMiGeN8Jd7A1vJUJ9WuNfwORJiA",
+    "name": "2400 - map reduce with generics"
+  },
+  {
+    "id": "1rTXMj1metAWqfg3uceUBtqgjvgaKfy8qEcOzOw6C_iw",
+    "name": "2300 - Generics"
+  },
+  {
+    "id": "1feJLPn1RBWhlY_5DDHLVUKBx7Dl8guxL5e1sLO02GyM",
+    "name": "2200 - cancel patterns"
+  },
+  {
+    "id": "1isJ4hz5iuNdQlxezYJZLbHZLsnV59RKq-NSktIqcmCk",
+    "name": "2100 - drop patterns"
+  },
+  {
+    "id": "1c9qLsL_vOkfdP1cczyXXPXdwaAn57oqtFeD50QOay-A",
+    "name": "2000 - concurrency patterns"
+  },
+  {
+    "id": "1xK6EACuOEWQ7JXQiW9fcDfD8NiKfoA5Me-J2lm6ihBg",
+    "name": "1800 - orchestration with channels"
+  },
+  {
+    "id": "1-kMi8jPpdjAYxjzPcXg01g52707I4uR6ft6Lu-UYLlc",
+    "name": "1700- synchronization"
+  },
+  {
+    "id": "17ozTacomwmpoVMvylqfdd1452th2pATvuqhcp3pa7mo",
+    "name": "1200 - Interfaces"
+  },
+  {
+    "id": "1bxanB3F3Borf5B2reYF40PFUJuf3uEzkU6Jp0DFdMn4",
+    "name": "1600 - Goroutines"
+  },
+  {
+    "id": "1HV_I7Q3qysXcriaU4z52Eb3hZpEvag7JNwQHn5nI8j8",
+    "name": "1500 - Packages and modules"
+  },
+  {
+    "id": "1_Nyxrt460ugsm9fgUK4cRuYPQJ-1YSDworUZcY9zdwU",
+    "name": "1400 - Error handling"
+  },
+  {
+    "id": "1-N6SDLdpEF5fntkbsyddNf4s7mnbL96QvyE2XRO2RGs",
+    "name": "9000 - General interesting links"
+  },
+  {
+    "id": "1x0l_Q6he85qNnFWjNx_SzPCnwO_O0NDajh0BRcV9tmk",
+    "name": "1300 - Embedding"
+  },
+  {
+    "id": "1wITcFB0a2KlJwpMaCrTs1v8AjTIbwagPrB6peoFWr7s",
+    "name": "0500 - Defined types and alias types"
+  },
+  {
+    "id": "1zdnb16IB49NL8vjZ5X1Ds6T4tdG2pzbGCB4vccJTWNA",
+    "name": "1100 - Value and pointer semantics"
+  },
+  {
+    "id": "1LMNKcse0JSWStLlgnD8DXabV2XxygO3cbEhVhJ9jFJY",
+    "name": "1000 - Methods"
+  },
+  {
+    "id": "1y3WLr8-wstntgziOEfUJ0GzgjOlK2b46cHELqQ9x-Qw",
+    "name": "0950 - Strings as collections"
+  },
+  {
+    "id": "18yOu3ktqCSCa2f_S4Z8NOq3ienVJGylimCrrQgHC3n4",
+    "name": "0920 - Maps"
+  },
+  {
+    "id": "1k3lMsen7if24gEJfVgsiSfZdhQg8uA6ZUXVgvdzzwME",
+    "name": "0900 - Arrays and slices"
+  },
+  {
+    "id": "1pSuFTbTemuZC2HVocsfxkcJd5J0qKGVzijJD-OWlWH4",
+    "name": "0800 - Values and pointers"
+  },
+  {
+    "id": "1_2_cgkPgP1J9emR90OX01F1UHORwI6BnfpMRAKdKoSU",
+    "name": "0700 - Functions"
+  },
+  {
+    "id": "1m5zKVvvv3jyX0KvvUZXienrpTjjPlT9MUXZ4VHilX2w",
+    "name": "0650 - Constants"
+  },
+  {
+    "id": "1T89hw9EXQDuzVt3rtwjRgLw9pwoFZhwvjUjL88kOOoQ",
+    "name": "0600 - Type convertions"
+  },
+  {
+    "id": "1n8tt6laH3YKquGL05Fq2cRTzDOOnIMxiTigIkzT_lKA",
+    "name": "0150 -  A little less simple Go program"
+  },
+  {
+    "id": "1T3RyI3EigON5tlBmIZbwlQoajjYGSHP0hwveSM2NmiM",
+    "name": "1900 - context package"
+  },
+  {
+    "id": "15rGZgkZfIJTGvyUV2IeIEvTRUbhlPw0rCcE5lgqYEmM",
+    "name": "0400 - Struct types"
+  },
+  {
+    "id": "1yNYgeaXzSZygU1qtqAjpBTYZ0WHcBbjzjhmqX_r8D38",
+    "name": "0200 - Variables and types"
+  },
+  {
+    "id": "13Y8MJIV-btQKXU07YYA21ZOvKBK8JpIVZrKkDxXCGhc",
+    "name": "0350 - Flow control statements"
+  },
+  {
+    "id": "1Rplyau1u-xEp2RPJn_MwNPaurV26BfBMA9qPRHP5m7k",
+    "name": "0300 - Scaffolding of a Go project"
+  },
+  {
+    "id": "1boiMuwsLQfkzSI8--3cZZZ-UMbh1UnX3_5PxrelMxGk",
+    "name": "0100 - The simplest Go program"
+  },
+  {
+    "id": "1BoC7cezvZ3W3IHXxcwr79H4ud_ye3tgqFUN5dORUoqg",
+    "name": "2700 - benchmarking"
+  },
+  {
+    "id": "1OX0Xrx2dwuTZxAzSG9W5J_8w7msgxGL40KuxHahOIvE",
+    "name": "2500 - testing"
+  },
+  {
+    "id": "1nhMmFNM0n5ct_1CP5vW-3tDTAg6BUC7KguzqpCfrR_Q",
+    "name": "2600 - documentation"
+  },
+  {
+    "id": "10ENOrYjORjOmk5PdpxoSaJ0lzzmZAjqiA2A7KEkZeM4",
+    "name": "3000 - the go command"
+  }
+]
