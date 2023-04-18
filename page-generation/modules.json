@@ -1,31 +1,51 @@
 [
   {
+    "id": "1BoC7cezvZ3W3IHXxcwr79H4ud_ye3tgqFUN5dORUoqg",
+    "name": "2700 - Benchmarking"
+  },
+  {
+    "id": "1nhMmFNM0n5ct_1CP5vW-3tDTAg6BUC7KguzqpCfrR_Q",
+    "name": "2600 - Documentation"
+  },
+  {
+    "id": "1OX0Xrx2dwuTZxAzSG9W5J_8w7msgxGL40KuxHahOIvE",
+    "name": "2500 - Testing"
+  },
+  {
     "id": "1-49suzQXveAJZIgudMiGeN8Jd7A1vJUJ9WuNfwORJiA",
-    "name": "2400 - map reduce with generics"
+    "name": "2400 - Map reduce with generics"
+  },
+  {
+    "id": "1isJ4hz5iuNdQlxezYJZLbHZLsnV59RKq-NSktIqcmCk",
+    "name": "2100 - Drop patterns"
+  },
+  {
+    "id": "1feJLPn1RBWhlY_5DDHLVUKBx7Dl8guxL5e1sLO02GyM",
+    "name": "2200 - Cancel patterns"
+  },
+  {
+    "id": "1c9qLsL_vOkfdP1cczyXXPXdwaAn57oqtFeD50QOay-A",
+    "name": "2000 - Concurrency patterns"
+  },
+  {
+    "id": "1T3RyI3EigON5tlBmIZbwlQoajjYGSHP0hwveSM2NmiM",
+    "name": "1900 - Context package"
+  },
+  {
+    "id": "1xK6EACuOEWQ7JXQiW9fcDfD8NiKfoA5Me-J2lm6ihBg",
+    "name": "1800 - Orchestration with channels"
+  },
+  {
+    "id": "1-kMi8jPpdjAYxjzPcXg01g52707I4uR6ft6Lu-UYLlc",
+    "name": "1700 - Synchronization"
+  },
+  {
+    "id": "1boiMuwsLQfkzSI8--3cZZZ-UMbh1UnX3_5PxrelMxGk",
+    "name": "0100 - The simplest Go program"
   },
   {
     "id": "1rTXMj1metAWqfg3uceUBtqgjvgaKfy8qEcOzOw6C_iw",
     "name": "2300 - Generics"
-  },
-  {
-    "id": "1feJLPn1RBWhlY_5DDHLVUKBx7Dl8guxL5e1sLO02GyM",
-    "name": "2200 - cancel patterns"
-  },
-  {
-    "id": "1isJ4hz5iuNdQlxezYJZLbHZLsnV59RKq-NSktIqcmCk",
-    "name": "2100 - drop patterns"
-  },
-  {
-    "id": "1c9qLsL_vOkfdP1cczyXXPXdwaAn57oqtFeD50QOay-A",
-    "name": "2000 - concurrency patterns"
-  },
-  {
-    "id": "1xK6EACuOEWQ7JXQiW9fcDfD8NiKfoA5Me-J2lm6ihBg",
-    "name": "1800 - orchestration with channels"
-  },
-  {
-    "id": "1-kMi8jPpdjAYxjzPcXg01g52707I4uR6ft6Lu-UYLlc",
-    "name": "1700- synchronization"
   },
   {
     "id": "17ozTacomwmpoVMvylqfdd1452th2pATvuqhcp3pa7mo",
@@ -92,10 +112,6 @@
     "name": "0150 -  A little less simple Go program"
   },
   {
-    "id": "1T3RyI3EigON5tlBmIZbwlQoajjYGSHP0hwveSM2NmiM",
-    "name": "1900 - context package"
-  },
-  {
     "id": "15rGZgkZfIJTGvyUV2IeIEvTRUbhlPw0rCcE5lgqYEmM",
     "name": "0400 - Struct types"
   },
@@ -110,21 +126,5 @@
   {
     "id": "1Rplyau1u-xEp2RPJn_MwNPaurV26BfBMA9qPRHP5m7k",
     "name": "0300 - Scaffolding of a Go project"
-  },
-  {
-    "id": "1boiMuwsLQfkzSI8--3cZZZ-UMbh1UnX3_5PxrelMxGk",
-    "name": "0100 - The simplest Go program"
-  },
-  {
-    "id": "1BoC7cezvZ3W3IHXxcwr79H4ud_ye3tgqFUN5dORUoqg",
-    "name": "2700 - benchmarking"
-  },
-  {
-    "id": "1OX0Xrx2dwuTZxAzSG9W5J_8w7msgxGL40KuxHahOIvE",
-    "name": "2500 - testing"
-  },
-  {
-    "id": "1nhMmFNM0n5ct_1CP5vW-3tDTAg6BUC7KguzqpCfrR_Q",
-    "name": "2600 - documentation"
   }
 ]
