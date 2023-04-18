@@ -1,13 +1,5 @@
 [
   {
-    "id": "1NqmAwEA-fiu5sh5yI3NRWbaQda4jTF95yKtdgY-HMRQ",
-    "name": "0000 - Go class - index"
-  },
-  {
-    "id": "1j_89Wgu50dfHuf5Cdb7qShAF0_C9cB7ao6JpqgMe9Mw",
-    "name": "0000 - Go class - web index "
-  },
-  {
     "id": "1-49suzQXveAJZIgudMiGeN8Jd7A1vJUJ9WuNfwORJiA",
     "name": "2400 - map reduce with generics"
   },
@@ -50,10 +42,6 @@
   {
     "id": "1_Nyxrt460ugsm9fgUK4cRuYPQJ-1YSDworUZcY9zdwU",
     "name": "1400 - Error handling"
-  },
-  {
-    "id": "1-N6SDLdpEF5fntkbsyddNf4s7mnbL96QvyE2XRO2RGs",
-    "name": "9000 - General interesting links"
   },
   {
     "id": "1x0l_Q6he85qNnFWjNx_SzPCnwO_O0NDajh0BRcV9tmk",
@@ -138,9 +126,5 @@
   {
     "id": "1nhMmFNM0n5ct_1CP5vW-3tDTAg6BUC7KguzqpCfrR_Q",
     "name": "2600 - documentation"
-  },
-  {
-    "id": "10ENOrYjORjOmk5PdpxoSaJ0lzzmZAjqiA2A7KEkZeM4",
-    "name": "3000 - the go command"
   }
 ]

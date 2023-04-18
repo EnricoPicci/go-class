@@ -12,7 +12,7 @@ var indexTemplate = `
   </style>
   <style>
     .responsive {
-      width: 100%;
+      width: 90%%;
       height: auto;
     }
   </style>
@@ -20,8 +20,10 @@ var indexTemplate = `
 <body>
   <h1>Go-class</h1>
   <h2>A journey to learn Go programming language</h2>
-  <p>Created by Enrico Piccinin</p>
-  <a href="mailto:enrico.piccinin@gmail.com?subject = Go-class"
+  <p style="display: inline">Created by Enrico Piccinin</p>
+  <a
+    href="mailto:enrico.piccinin@gmail.com?subject = Go-class"
+    style="margin-left: 20"
     >enrico.piccinin@gmail.com</a
   >
   <img src="./assets/img/go-class.png" class="responsive" />
