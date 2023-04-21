@@ -35,7 +35,7 @@ func TestCcopyFromStdinTo(t *testing.T) {
 	stdin = newStdin(quitCmd, sr)
 	localFileName := "local.txt"
 	prjDir := helpers.ProjectDir()
-	localFilePath := path.Join(prjDir, "out", "local", localFileName)
+	localFilePath := path.Join(prjDir, "out", localFileName)
 	// copy from stdin
 	copyFromStdinTo(localFilePath, false, stdin)
 

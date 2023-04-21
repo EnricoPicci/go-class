@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -55,7 +54,7 @@ func generateIndexAndPages(jsonFile string) (indexHtml string, pagesHtml []pageD
 }
 
 func removeFiles(dir string) {
-	dirInfo, err := ioutil.ReadDir(dir)
+	dirInfo, err := os.ReadDir(dir)
 	if err != nil {
 		panic(err)
 	}

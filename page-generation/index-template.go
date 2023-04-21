@@ -30,5 +30,9 @@ var indexTemplate = `
   <ul>
     %v
   </ul>
+  <p>
+    This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA) license. 
+    See <a href="./LICENSE.txt">license.txt</a> for details.
+  </p>
 </body>
 `
