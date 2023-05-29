@@ -43,3 +43,7 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 
 From the GO-CLASS project folder run the command
 `./launch-tests.sh`
+
+## How the website has been created
+
+The process follow to create the website and generate the html code is described in [this article](https://betterprogramming.pub/building-a-static-website-integrating-github-pages-and-google-slides-a0fd65e14317)
