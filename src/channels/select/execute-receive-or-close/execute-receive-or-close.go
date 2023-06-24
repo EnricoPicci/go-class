@@ -37,8 +37,9 @@ func main() {
 func sendToChannelWithDelay(ch chan string, val string) {
 	// random delay
 	delay := rand.Intn(100000)
+	delay_msg := fmt.Sprintf("%v", time.Duration(delay))
 	time.Sleep(time.Duration(delay))
-	fmt.Printf("delay %v in sending %v\n", delay, val)
+	fmt.Printf("delay %v in sending %v\n", delay_msg, val)
 
 	ch <- val
 }
@@ -46,8 +47,9 @@ func sendToChannelWithDelay(ch chan string, val string) {
 func closeChannelWithDelay(ch chan string, chName string) {
 	// random delay
 	delay := rand.Intn(100000)
+	delay_msg := fmt.Sprintf("%v", time.Duration(delay))
 	time.Sleep(time.Duration(delay))
-	fmt.Printf("delay %v in closing the channel %v\n", delay, chName)
+	fmt.Printf("delay %v in closing the channel %v\n", delay_msg, chName)
 
 	close(ch)
 }
